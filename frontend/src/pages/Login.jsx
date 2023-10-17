@@ -1,41 +1,60 @@
 import React from 'react'
 
-const Login = () => {
+function Login() {
   return (
-   
-    <section className="bg-cyan-200 h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-      <img
-          src="Loginpagemainimage.png"
-          alt="Sample image" />
-      </div>
-      < div class="bg-grey-lighter min-h-screen flex flex-col">
-                        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                                <h1 className="mr-1 text-blue font-bold py-8 px-24 text-4xl">Login</h1>
-
-                                <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded " type="text" placeholder="Email" />
-                                <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4" type="password" placeholder="Password" />
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
-              Login
-            </button>
-            
-                                
-                            </div>
-            
-                            <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-                      Don't have an account? <a className="text-red-600 hover:underline hover:underline-offset-4" href="/register"> Sign up</a>
-                    </div>
-                        </div>
-                    
-      
-       
-      
+    <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 bg-primary flex md:flex-col items-center justify-center  bg-gray-100 text-[8px] md:text-base">
+      <div
+        class=" h-full flex flex-col m-20 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row  md:space-y-0"
+      >
+        <div class="flex flex-col justify-center p-8 p-14 md">
+          <span class="mb-3 text-4xl font-bold"> Welcome back!</span>
+          <span class="font-light text-gray-400 mb-8">
+            Welcome back! Please enter your details
+          </span>
+          <div class="py-4">
+            <input
+              type="text"
+              class="w-full p-2 border  border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              name="email"
+              placeholder='Email'
+              id="email"
+            />
+          </div>
+          <div class="py-4">
+            <input
+              type="password"
+              name="pass"
+              placeholder='Password'
+              id="pass"
+              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            />
+          </div>
+          
+          <button
+            class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-50 w-full bg-button1 text-white p-2 rounded-lg mb-6 hover:bg-button1hover mt-8"
+          >
+            Log in
+          </button>
         
+          <div class="text-center text-gray-400 mt-4">
+            Don't have an account?
+            <a class="font-bold text-red "href='/register' >Sign up for free</a>
+          </div>
+        </div>
+        <div class="relative">
+          <img
+            src="image1.png"
+            alt="img"
+            class="w-[375px] h-full hidden rounded-r-2xl md:block object-cover"
+          />
+          <div
+            class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
+          >
+            
+          </div>
+        </div>
       </div>
-    </section>
-
-
+    </div>
   )
 }
 

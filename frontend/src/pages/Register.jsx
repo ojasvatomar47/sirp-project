@@ -1,58 +1,86 @@
-import React from 'react'
+import React from 'react';
 
-const Register = () => {
+function Register() {
   return (
-   
-    <section className="bg-cyan-200 h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-      <img
-          src="Loginpagemainimage.png"
-          alt="Sample image" />
+
+    <div className="  bg-secondary bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%  flex items-center justify-center bg-gray-100 text-[8px] md:text-base h-screen">
+      <div className="relative flex flex-col m-4 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+        <div className=" overflow-y-scroll h-[565px] w-[360px] flex flex-col justify-center p-4 md:p-8">
+          <span className="mb-2 text-3xl font-bold ">Sign Up</span>
+          <input
+            type="text"
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
+            name="name"
+            placeholder="Full Name"
+            id="name"
+          />
+          <input
+            type="text"
+            className="w-full p-2 border mt-4 border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
+            name="rn"
+            placeholder="Roll Number"
+            id="rn"
+          />
+          <input
+            type="text"
+            className="w-full p-2 border mt-4 border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
+            name="hostel"
+            placeholder="Hostel"
+            id="hostel"
+          />
+
+<span className="mt-4">Gender</span>
+
+<div class="flex items-center mb-4">
+    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 mt-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+    <label for="default-radio-1" class="ml-2 mt-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
+</div>
+<div class="flex items-center">
+    <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+    <label for="default-radio-2" class="ml-2  text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
+</div>
+
+
+
+          <input
+            type="text"
+            className="w-full mt-4 p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 "
+            name="email"
+            placeholder="Email"
+            id="email"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            className="mt-4 mb-2 w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+          />
+
+          <button
+            className=" bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-50 w-full bg-button1 text-white p-2 rounded-lg mb-4 hover:bg-button1hover mt-4"
+          >
+            Sign up
+          </button>
+
+          <div className="text-center text-gray-400 mt-2">
+            Already have an account?
+            <a className="font-bold text-red" href="/login">
+              Login
+            </a>
+          </div>
+        </div>
+        <div className="relative">
+          <img
+            src="image1.png"
+            alt="img"
+            className="w-[375px] h-full hidden rounded-r-2xl md:block object-cover"
+          />
+          <div className="absolute hidden bottom-4 right-4 p-4 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"></div>
+        </div>
       </div>
-      <div className="md:w-1/3 max-w-sm">
-        <div className="text-center md:text-left">
-         
-        </div>
-        <div class="bg-Lime-200 min-h-screen flex flex-col">
-            <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 className="mr-1 text-blue font-bold py-8 px-20 text-4xl">Sign up!</h1>
-                    <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-4" type="text" placeholder="Full Name" />
-
-                    <label for="hostel"  className="text-sm w-full px-0 py-2   border-gray-300 text-base " type="text"> Choose your Hostel </label>
-
-<select className="bg-gray-200 px-4 "name="hostel" id="hostel">
-  <option value="Vasishta">Vasishta</option>
-  <option value="Vivekanand">Vivekanand</option>
-  <option value="Panini">Panini</option>
-  <option value="Nagarjun">Nagarjun</option>
-  <option value="Maa Saraswati">Maa Saraswati</option>
-
-</select>
-
-                    
-                    <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4" type="text" placeholder="Roll Number" />
-                    <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4" type="text" placeholder="Email" />
-                    <input className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4" type="password" placeholder="Password" />
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
-  Create Account
-</button>
-
-                    
-                </div>
-
-                <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-          Already have an account? <a className="text-red-600 hover:underline hover:underline-offset-4" href="/login">Log in</a>
-        </div>
-            </div>
-        </div>
-
-        
-      </div>
-    </section>
-
-
-  )
+    </div>
+  );
 }
 
-export default Register
+export default Register;
