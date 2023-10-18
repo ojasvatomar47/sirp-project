@@ -5,7 +5,7 @@ function Register() {
 
     <div className="  bg-secondary bg-gradient-to-r from-indigo-200 from-10% via-sky-100 via-30% to-emerald-200 to-90%  flex items-center justify-center bg-gray-100 text-[8px] md:text-base h-screen">
       <div className="relative flex flex-col m-4 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
-        <div className=" overflow-y-scroll h-[575px] w-[360px] flex flex-col justify-center p-4 md:p-8">
+        <div className=" overflow-y-scroll h-[575px] w-[420px] flex flex-col justify-center p-4 md:p-8">
           <span className="mb-2 text-3xl font-bold ">Sign Up</span>
           <input
             type="text"
