@@ -2,7 +2,7 @@ import React from 'react'
 
 function Login() {
   return (
-    <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 bg-primary flex md:flex-col items-center justify-center  bg-gray-100 text-[8px] md:text-base">
+    <div class="h-full bg-gradient-to-r from-cyan-200 to-blue-200 bg-primary flex md:flex-col items-center justify-center  bg-gray-100 text-[8px] md:text-base">
       <div
         class=" h-full flex flex-col m-20 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row  md:space-y-0"
       >

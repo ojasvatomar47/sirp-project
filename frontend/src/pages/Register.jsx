@@ -3,9 +3,9 @@ import React from 'react';
 function Register() {
   return (
 
-    <div className="  bg-secondary bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%  flex items-center justify-center bg-gray-100 text-[8px] md:text-base h-screen">
+    <div className="  bg-secondary bg-gradient-to-r from-indigo-200 from-10% via-sky-100 via-30% to-emerald-200 to-90%  flex items-center justify-center bg-gray-100 text-[8px] md:text-base h-screen">
       <div className="relative flex flex-col m-4 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
-        <div className=" overflow-y-scroll h-[565px] w-[360px] flex flex-col justify-center p-4 md:p-8">
+        <div className=" overflow-y-scroll h-[575px] w-[360px] flex flex-col justify-center p-4 md:p-8">
           <span className="mb-2 text-3xl font-bold ">Sign Up</span>
           <input
             type="text"
@@ -39,8 +39,6 @@ function Register() {
     <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
     <label for="default-radio-2" class="ml-2  text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
 </div>
-
-
 
           <input
             type="text"
