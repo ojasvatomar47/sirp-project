@@ -5,8 +5,12 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
-import Login from './pages/Login';
-import Register from './pages/Register';
+import StudentLogin from './pages/StudentLogin';
+import StudentRegister from './pages/StudentRegister';
+import CaretakerLogin from './pages/CaretakerLogin';
+import CaretakerRegister from './pages/CaretakerRegister';
+import WardenRegister from './pages/WardenRegister';
+import WardenLogin from './pages/WardenLogin';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Profile from './pages/Profile';
@@ -19,9 +23,9 @@ const Layout = () => {
   
   return (
     <>
-      <Navbar />
-      <Outlet />
-      <Footer />
+    <Navbar/>
+    <Home/>
+    <Footer/>
     </>
   )
 }
@@ -54,12 +58,28 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/register",
-    element: <Register />
+    path: "/caretakerregister",
+    element: <CaretakerRegister />
   },
   {
-    path: "/login",
-    element: <Login />
+    path: "/caretakerlogin",
+    element: <CaretakerLogin />
+  },
+  {
+    path: "/wardenregister",
+    element: <WardenRegister />
+  },
+  {
+    path: "/wardenlogin",
+    element: <WardenLogin />
+  },
+  {
+    path: "/studentregister",
+    element: <StudentRegister />
+  },
+  {
+    path: "/studentlogin",
+    element: <StudentLogin />
   },
 ])
 
