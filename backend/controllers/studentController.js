@@ -7,37 +7,42 @@ const router = express.Router();
 
 // Student registration
 export const studentRegister = (req, res) => {
+
   // Check if the user already exists
-  const checkUserQuery = "SELECT * FROM students WHERE username = ?";
-  db.query(checkUserQuery, [req.body.username], (err, data) => {
+  var q = "SELECT * FROM students WHERE username = ?";
+
+  db.query(q, [req.body.username], (err, data) => {
     if (err) {
       return res.status(500).json(err);
     }
     if (data.length) {
       return res.status(409).json("User already exists!");
     }
-
-    // Generate a salt and hash the student's password for security
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
-    // Insert the new student with role 'student' into the database
-    const insertUserQuery = "INSERT INTO students (`username`, `email`, `password`, `name`, `hostel_name`, `role`) VALUES (?)";
-    const values = [req.body.username, req.body.email, hashedPassword, req.body.name, req.body.hostel, 'student'];
-
-    db.query(insertUserQuery, [values], (err, data) => {
-      if (err) {
-        return res.status(500).json(err);
-      }
-      return res.status(200).json("User has been created");
-    });
   });
+
+  // Generate a salt and hash the student's password for security
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+  // Insert the new student with role 'student' into the database
+  q = "INSERT INTO students (`username`, `email`, `password`, `name`, `hostel_name`, `role`) VALUES (?)";
+
+  const values = [req.body.username, req.body.email, hashedPassword, req.body.name, req.body.hostel, 'student'];
+
+  db.query(q, [values], (err, data) => {
+    if (err) {
+      console.log("error occurred while sending query in register");
+      return res.status(500).json(err);
+    }
+    return res.status(200).json("User has been created");
+  });
+
 };
 
 // Student login
 export const studentLogin = (req, res) => {
-  const checkUserQuery = "SELECT * FROM students WHERE email = ?";
-  db.query(checkUserQuery, [req.body.email], (err, data) => {
+  var q = "SELECT * FROM students WHERE email = ?";
+  db.query(q, [req.body.email], (err, data) => {
     if (err) {
       return res.status(500).json(err);
     }
@@ -57,7 +62,9 @@ export const studentLogin = (req, res) => {
     res.cookie("accessToken", token, {
       httpOnly: true,
     }).status(200).json(other);
+
   });
+  
 };
 
 // Student logout

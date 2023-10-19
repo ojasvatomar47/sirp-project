@@ -23,7 +23,7 @@ export const wardenRegister = (req, res) => {
 
         // Insert the new warden with role 'warden' into the database
         q = "INSERT INTO wardens (`email`, `password`, `name`, `hostel_name`, `role`) VALUES (?)";
-        const values = [req.body.email, hashedPassword, req.body.name, req.body.hostel_name, 'warden'];
+        const values = [req.body.email, hashedPassword, req.body.name, req.body.hostel, 'warden'];
 
         db.query(q, [values], (err, data) => {
             if (err) {
