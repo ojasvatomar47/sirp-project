@@ -1,61 +1,126 @@
-import React from 'react'
+import React from 'react';
+import classNames from 'classnames';
 
 function Login() {
   return (
-    <div class="h-full bg-gradient-to-r from-cyan-200 to-blue-200 bg-primary flex md:flex-col items-center justify-center  bg-gray-100 text-[8px] md:text-base">
-      <div
-        class=" h-full flex flex-col m-20 space-y-6  bg-white shadow-2xl rounded-2xl md:flex-row  md:space-y-0"
-      >
-        <div class="flex flex-col justify-center p-8 p-14 md">
-          <span class="mb-3 text-4xl font-bold"> Welcome back!</span>
-          <span class="font-light text-gray-400 mb-8">
+    <div className={classNames(
+      'h-full',
+      'font-lora',
+      'flex',
+      'md:flex-col',
+      'items-center',
+      'justify-center',
+      'text-[8px]',
+      'md:text-base',
+      'md:w-[100vw]',
+      'md:w-[100%]',
+      'md:gap-7',
+    )}>
+
+      <div className={classNames(
+        'h-full',
+        'flex',
+        'flex-col',
+        'm-12',
+        'space-y-6',
+        'bg-white',
+        'shadow-2xl',
+        'rounded-2xl',
+        'md:flex-row',
+        'md:space-y-0',
+      )}>
+
+        <div className={classNames(
+          'flex',
+          'flex-col',
+          'gap-8',
+          'justify-center',
+          'px-8',
+          'p-12',
+          'py-0',
+        )}>
+
+          <span className={classNames('text-3xl', 'py-4','md:text-4xl', 'font-bold')}>
+            <center>Log in</center>
+          </span>
+
+          <span className={classNames('font-light', 'text-gray-400')}>
             Welcome back! Please enter your details
           </span>
-          <div class="py-4">
-            <input
-              type="text"
-              class="w-full p-2 border  border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-              name="email"
-              placeholder='Email'
-              id="email"
-            />
-          </div>
-          <div class="py-4">
-            <input
-              type="password"
-              name="pass"
-              placeholder='Password'
-              id="pass"
-              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-            />
-          </div>
-          
-          <button
-            class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-50 w-full bg-button1 text-white p-2 rounded-lg mb-6 hover:bg-button1hover mt-8"
-          >
+
+          <input
+            type="text"
+            className={classNames(
+              'w-full',
+              'border-b-2',
+              'solid',
+              'black',
+              'border-indigo-200',
+              'p-2',
+              'border-b-2',
+              'border-gray-300',
+              'rounded',
+              'placeholder:font-light',
+              'placeholder:text-gray-500',
+            )}
+            name="email"
+            placeholder="Email"
+            id="email"
+          />
+
+          <input
+            type="password"
+            name="pass"
+            placeholder="Password"
+            id="pass"
+            className={classNames(
+              'w-full',
+              'border-b-2',
+              'border-indigo-200',
+              'p-2',
+              'border-b-2',
+              'border-gray-300',
+              'rounded',
+              'placeholder:font-light',
+              'placeholder:text-gray-500',
+            )}
+          />
+
+          <button className={classNames('w-full', 'bg-button1', 'text-white', 'p-2', 'rounded-md', 'hover:bg-button1hover')}>
             Log in
           </button>
-        
-          <div class="text-center text-gray-400 mt-4">
+
+          <div className={classNames('text-center', 'text-gray-400')}>
             Don't have an account?
-            <a class="font-bold text-red "href='/register' >Sign up for free</a>
+            <a className={classNames('font-bold', 'text-black')} href="/register">
+              <p></p> Sign up!
+            </a>
           </div>
+
         </div>
-        <div class="relative">
+
+        <div className={classNames('relative')}>
+
           <img
-            src="image1.png"
+            src="image2.png"
             alt="img"
-            class="w-[375px] h-full hidden rounded-r-2xl md:block object-cover"
+            className={classNames(
+              'w-[350px]',
+              'h-full',
+              'opacity-50',
+              'hidden',
+              'rounded-r-2xl',
+              'md:block',
+              'object-cover',
+            )}
           />
-          <div
-            class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
-          >
-            
-          </div>
+
         </div>
+
       </div>
+
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

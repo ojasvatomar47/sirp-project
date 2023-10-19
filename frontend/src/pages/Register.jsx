@@ -1,82 +1,186 @@
 import React from 'react';
+import classNames from 'classnames';
 
 function Register() {
   return (
+    <div className={classNames(
+      'h-full',
+      'font-lora',
+      'flex',
+      'md:flex-col',
+      'items-center',
+      'justify-center',
+      'text-[8px]',
+      'md:text-base',
+      'md:w-[100vw]',
+      'md:w-[100%]',
+      'md:gap-4',
+    )}>
 
-    <div className="  bg-secondary bg-gradient-to-r from-indigo-200 from-10% via-sky-100 via-30% to-emerald-200 to-90%  flex items-center justify-center bg-gray-100 text-[8px] md:text-base h-screen">
-      <div className="relative flex flex-col m-4 space-y-6 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
-        <div className=" overflow-y-scroll h-[575px] w-[420px] flex flex-col justify-center p-4 md:p-8">
-          <span className="mb-2 text-3xl font-bold ">Sign Up</span>
-          <input
-            type="text"
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
-            name="name"
-            placeholder="Full Name"
-            id="name"
-          />
-          <input
-            type="text"
-            className="w-full p-2 border mt-4 border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
-            name="rn"
-            placeholder="Roll Number"
-            id="rn"
-          />
-          <input
-            type="text"
-            className="w-full p-2 border mt-4 border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 mt-2"
-            name="hostel"
-            placeholder="Hostel"
-            id="hostel"
-          />
+      <div className={classNames(
+        'h-full',
+        'flex',
+        'flex-col',
+        'm-4',
+        'space-y-6',
+        'bg-white',
+        'shadow-2xl',
+        'rounded-2xl',
+        'md:flex-row',
+        'md:space-y-0',
+      )}>
+          <div className={classNames('relative')}>
 
-<span className="mt-4">Gender</span>
+<img
+  src="image2.png"
+  alt="img"
+  className={classNames(
+    'w-[350px]',
+    'h-full',
+    'opacity-50',
+    'hidden',
+    'rounded-l-2xl',
+    'md:block',
+    'object-cover',
+  )}
+/>
 
-<div class="flex items-center mb-4">
-    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 mt-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-    <label for="default-radio-1" class="ml-2 mt-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
 </div>
-<div class="flex items-center">
-    <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-    <label for="default-radio-2" class="ml-2  text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
-</div>
+
+        <div className={classNames(
+          'flex',
+          'flex-col',
+          'gap-5',
+          'justify-center',
+          'px-8',
+          'p-12',
+          'py-0',
+        )}>
+          
+
+          <span className={classNames('text-3xl md:text-4xl','py-4', 'font-bold')}>
+            <center>Sign up</center>
+          </span>
+
+          <span className={classNames('font-light', 'text-gray-400')}>
+            Welcome back! Please enter your details
+          </span>
+
+          <input
+                        type="text"
+                        className={classNames(
+                            'w-full',
+                            'border-b-2',
+                            'solid',
+                            'black',
+                            'border-indigo-200',
+                            'p-2',
+                            'border-b-2',
+                            'border-gray-300',
+                            'rounded',
+                            'placeholder:font-light',
+                            'placeholder:text-gray-500',
+                        )}
+                        name="Name"
+                        placeholder="Name"
+                        id="Name"
+                    />
+
+                    <input
+                        type="text"
+                        className={classNames(
+                            'w-full',
+                            'border-b-2',
+                            'solid',
+                            'black',
+                            'border-indigo-200',
+                            'p-2',
+                            'border-b-2',
+                            'border-gray-300',
+                            'rounded',
+                            'placeholder:font-light',
+                            'placeholder:text-gray-500',
+                        )}
+                        name="Hostel"
+                        placeholder="Hostel"
+                        id="Hostel"
+                    />
+
+                    <input
+                        type="text"
+                        className={classNames(
+                            'w-full',
+                            'border-b-2',
+                            'solid',
+                            'black',
+                            'border-indigo-200',
+                            'p-2',
+                            'border-b-2',
+                            'border-gray-300',
+                            'rounded',
+                            'placeholder:font-light',
+                            'placeholder:text-gray-500',
+                        )}
+                        name="Username"
+                        placeholder="Username"
+                        id="Username"
+                    />
 
           <input
             type="text"
-            className="w-full mt-4 p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 "
+            className={classNames(
+              'w-full',
+              'border-b-2',
+              'solid',
+              'black',
+              'border-indigo-200',
+              'p-2',
+              'border-b-2',
+              'border-gray-300',
+              'rounded',
+              'placeholder:font-light',
+              'placeholder:text-gray-500',
+            )}
             name="email"
             placeholder="Email"
             id="email"
           />
+
           <input
             type="password"
-            name="password"
-            id="password"
+            name="pass"
             placeholder="Password"
-            className="mt-4 mb-2 w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            id="pass"
+            className={classNames(
+              'w-full',
+              'border-b-2',
+              'border-indigo-200',
+              'p-2',
+              'border-b-2',
+              'border-gray-300',
+              'rounded',
+              'placeholder:font-light',
+              'placeholder:text-gray-500',
+            )}
           />
 
-          <button
-            className=" bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-50 w-full bg-button1 text-white p-2 rounded-lg mb-4 hover:bg-button1hover mt-4"
-          >
+          <button className={classNames('w-full', 'bg-button1', 'text-white', 'p-2', 'rounded-md', 'hover:bg-button1hover')}>
             Sign up
           </button>
 
-          <div className="text-center text-gray-400 mt-2">
+          <div className={classNames('text-center','mb-2', 'text-gray-400')}>
             Already have an account?
-            <a className="font-bold text-red" href="/login">
-              Login
+            <a className={classNames('font-bold', 'text-black')} href="/login">
+              <p></p> Log in
             </a>
           </div>
+
         </div>
-        <div className="relative">
-          <img
-            src="image1.png"
-            alt="img"
-            className="w-[375px] h-full hidden rounded-r-2xl md:block object-cover"
-          />
-          <div className="absolute hidden bottom-4 right-4 p-4 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"></div>
-        </div>
+
+        
+
       </div>
+
     </div>
   );
 }
