@@ -11,7 +11,9 @@ const PORT = process.env.PORT || 8800;
 
 // Middleware
 app.use(express.json());
-app.use(cors()); // Configure CORS settings as needed
+app.use(cors({
+    origin: "http://localhost:5173"
+})); // Configure CORS settings as needed
 app.use(cookieParser());
 
 // Routes

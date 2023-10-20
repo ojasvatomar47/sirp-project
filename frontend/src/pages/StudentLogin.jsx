@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
@@ -10,15 +10,21 @@ const StudentLogin = () => {
     password: '',
   });
 
+  const [err, setErr] = useState(null)
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value})
   }
 
   const handleSubmit = async (event) => {
+    
+    event.preventDefault()
+
     try {
       await axios.post('http://localhost:8800/api/students/login', formData)
       console.log("Log In successfull")
     } catch (error) {
+      setErr(err.response.data)
       console.log("Some error occurred while logging in")
       console.log(error)
     }

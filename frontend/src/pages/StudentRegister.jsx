@@ -13,6 +13,8 @@ const StudentRegister = () => {
     hostel: 'Vivekananda', // default
   });
 
+  const [err, setErr] = useState(null)
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
@@ -24,6 +26,7 @@ const StudentRegister = () => {
       await axios.post('http://localhost:8800/api/students/register', formData)
       console.log("Registration successfull")
     } catch (error) {
+      setErr(err.response.data)
       console.log("Registration failed")
       console.log(error)
     }
