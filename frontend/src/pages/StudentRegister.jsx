@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import axios from 'axios';
 
-function StudentRegister() {
+const StudentRegister = () => {
+
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    name: '',
+    email: '',
+    hostel: 'Vivekananda', // default
+  });
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      await axios.post('http://localhost:8800/api/students/register', formData)
+      console.log("Registration successfull")
+    } catch (error) {
+      console.log("Registration failed")
+      console.log(error)
+    }
+  }
+
   return (
     <div className={classNames(
       'h-full',
@@ -40,7 +67,6 @@ function StudentRegister() {
 
             })}
           />
-
         </div>
 
         <div className={classNames({
@@ -53,6 +79,7 @@ function StudentRegister() {
             "text-3xl py-4 md:text-4xl font-bold": true,
           })}>
             <center>Sign up</center>
+            <p>Student</p>
           </span>
 
           <span className={classNames({
@@ -62,64 +89,72 @@ function StudentRegister() {
           </span>
 
           <input
-            type="text"
             className={classNames({
-              "w-full border-b-2 solid black border-b-2": true,
-
-              "border-indigo-200 border-gray-300 placeholder:text-gray-500": true,
+              "w-full solid black border-b-2": true,
+              
+              "border-gray-300 placeholder:text-gray-500": true,
               "p-2 rounded  placeholder:font-light": true,
-
+              
             })}
-            name="Name"
-            placeholder="Name"
-            id="Name"
-          />
-
-          <input
             type="text"
-            className={classNames({
-              "w-full border-b-2 solid black border-b-2": true,
-
-              "border-indigo-200 border-gray-300 placeholder:text-gray-500": true,
-              "p-2 rounded  placeholder:font-light": true,
-
-            })}
-            name="Username"
+            name="username"
             placeholder="Username"
-            id="Username"
+            id="username"
+            value={formData.username}
+            onChange={handleChange}
           />
 
           <input
+            className={classNames({
+              "w-full solid black border-b-2": true,
+
+              "border-gray-300 placeholder:text-gray-500": true,
+              "p-2 rounded  placeholder:font-light": true,
+
+            })}
             type="text"
-            className={classNames({
-              "w-full border-b-2 solid black border-b-2": true,
-
-              "border-indigo-200 border-gray-300 placeholder:text-gray-500": true,
-              "p-2 rounded  placeholder:font-light": true,
-
-            })}
-            name="email"
-            placeholder="Email"
-            id="email"
+            name="name"
+            placeholder="Name"
+            id="name"
+            value={formData.name}
+            onChange={handleChange}
           />
 
           <input
-            type="password"
             className={classNames({
-              "w-full border-b-2 solid black border-b-2": true,
+              "w-full solid black border-b-2": true,
 
-              "border-indigo-200 border-gray-300 placeholder:text-gray-500": true,
+              "border-gray-300 placeholder:text-gray-500": true,
               "p-2 rounded  placeholder:font-light": true,
 
             })}
+            type="password"
             name="password"
             placeholder="Password"
             id="password"
+            value={formData.password}
+            onChange={handleChange}
           />
 
-          <label for="hostel" className='text-gray-400'>Hostel</label>
+          <input
+            className={classNames({
+              "w-full solid black border-b-2": true,
 
-          <select name="hostel" id="hostel">
+              "border-gray-300 placeholder:text-gray-500": true,
+              "p-2 rounded  placeholder:font-light": true,
+
+            })}
+            type="email"
+            name="email"
+            placeholder="Email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="hostel" className='text-gray-400'>Hostel</label>
+
+          <select name="hostel" id="hostel" value={formData.hostel} onChange={handleChange}>
             <option value="Vivekananda">Vivekananda</option>
             <option value="Maa Saraswati">Maa Saraswati</option>
             <option value="Nagarjuna">Nagarjuna</option>
@@ -131,7 +166,7 @@ function StudentRegister() {
           <button className={classNames({
             "w-full p-2": true,
             "bg-button1 text-white rounded-md hover:bg-button1hover": true,
-          })}>
+          })} onClick={handleSubmit}>
             Sign up
           </button>
 
@@ -139,9 +174,9 @@ function StudentRegister() {
             " text-center text-gray-400 mb-2": true,
           })}>
             Don't have an account?
-            <a className={classNames('font-bold', 'text-black')} href="/studentlogin">
-              <p></p> Log in
-            </a>
+            <span className={classNames('font-bold', 'text-black')} href="/studentlogin">
+              <Link to='/studentlogin'>Log in</Link>
+            </span>
           </div>
 
         </div>

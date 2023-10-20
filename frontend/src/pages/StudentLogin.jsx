@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import axios from 'axios';
 
-function StudentLogin() {
+const StudentLogin = () => {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value})
+  }
+
+  const handleSubmit = async (event) => {
+    try {
+      await axios.post('http://localhost:8800/api/students/login', formData)
+      console.log("Log In successfull")
+    } catch (error) {
+      console.log("Some error occurred while logging in")
+      console.log(error)
+    }
+  }
+
   return (
     <div className={classNames({
       "flex md:flex-col h-full":true,
       "items-center justify-center":true,
       "text-[8px] md:text-base font-lora":true,
-      "md:w-[100%] md:gap-7 md:w-[100vw]":true,
+      "md:gap-7 md:w-[100vw]":true,
       
 })}>
 
@@ -28,6 +50,7 @@ function StudentLogin() {
             "text-3xl py-4 md:text-4xl font-bold":true,
            } )}>
             <center>Log in</center>
+            <p>Student</p>
           </span>
 
           <span className={classNames({
@@ -37,36 +60,40 @@ function StudentLogin() {
           </span>
 
           <input
-            type="text"
             className={classNames({
-              "w-full border-b-2 solid black border-b-2":true,
-             
-            "border-indigo-200 border-gray-300 placeholder:text-gray-500":true,
-             "p-2 rounded  placeholder:font-light":true,
-             
-             } )}
+              "w-full solid black border-b-2":true,
+              
+              "border-gray-300 placeholder:text-gray-500":true,
+              "p-2 rounded  placeholder:font-light":true,
+              
+            } )}
+            type="email"
             name="email"
             placeholder="Email"
             id="email"
+            value={formData.email}
+            onChange={handleChange}
           />
 
 <input
-            type="password"
             className={classNames({
-              "w-full border-b-2 solid black border-b-2":true,
-             
-            "border-indigo-200 border-gray-300 placeholder:text-gray-500":true,
-             "p-2 rounded  placeholder:font-light":true,
-             
-             } )}
+              "w-full solid black border-b-2":true,
+              
+              "border-gray-300 placeholder:text-gray-500":true,
+              "p-2 rounded  placeholder:font-light":true,
+              
+            } )}
+            type="password"
             name="password"
             placeholder="Password"
             id="password"
+            value={formData.password}
+            onChange={handleChange}
           />
           <button className={classNames({
             "w-full p-2":true,
             "bg-button1 text-white rounded-md hover:bg-button1hover":true,
-          })}>
+          })} onClick={handleSubmit}>
             Log in
           </button>
 
@@ -74,9 +101,9 @@ function StudentLogin() {
             " text-center text-gray-400":true,
            } )}>
             Don't have an account?
-            <a className={classNames('font-bold', 'text-black')} href="/studentregister">
-              <p></p> Sign up!
-            </a>
+            <span className={classNames('font-bold', 'text-black')} href="/caretakerregister">
+              <Link to='/caretakerregister'>Sign up</Link>
+            </span>
           </div>
 
         </div>
