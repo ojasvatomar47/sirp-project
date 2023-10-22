@@ -10,10 +10,19 @@ const app = express();
 const PORT = process.env.PORT || 8800;
 
 // Middleware
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
+
+// Configure CORS settings as needed
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+    })
+);
 app.use(express.json());
-app.use(cors({
-    origin: "http://localhost:5173"
-})); // Configure CORS settings as needed
 app.use(cookieParser());
 
 // Routes
