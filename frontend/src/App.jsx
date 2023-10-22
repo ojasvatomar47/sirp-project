@@ -2,7 +2,6 @@ import React from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Outlet,
 } from "react-router-dom";
 import StudentLogin from './pages/StudentLogin';
@@ -24,7 +23,7 @@ const Layout = () => {
   return (
     <>
     <Navbar/>
-    <Home/>
+    <Outlet/>
     <Footer/>
     </>
   )
