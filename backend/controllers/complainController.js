@@ -2,9 +2,23 @@ import { db } from "../db/db.js";
 
 export const getComplains = (req, res) => {
 
-    const { hostel } = req.body
+    const { hostel } = req.query
 
-    const q = "SELECT * FROM complaints WHERE hostel_name = ?"
+    const q = `
+        SELECT
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.hostel_name = ?;
+    `;
 
     db.query(q, [hostel], (err, data) => {
         if (err) {
@@ -20,9 +34,27 @@ export const getComplains = (req, res) => {
 
 export const getComplain = (req, res) => {
 
-    const { hostel, complainId } = req.params
+    const { hostel } = req.query
 
-    const q = 'SELECT * FROM complains WHERE complaint_id=? AND hostel_name=?'
+    const { complainId } = req.params
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.complaint_id = ?
+        AND
+            complaints.hostel_name = ?
+    `
 
     db.query(q, [complainId, hostel], (err, data) => {
         if (err) {
@@ -46,7 +78,19 @@ export const createComplain = (req, res) => {
         return res.status(403).json({ error: 'Unauthorized' })
     }
 
-    const q = "INSERT INTO complaints (title, description, status, submission_date, student_id, hostel_name) VALUES (?, ?, ?, ?, ?, ?)"
+    const q = `
+        INSERT INTO 
+            complaints 
+                (
+                    title, 
+                    description, 
+                    status, 
+                    submission_date, 
+                    student_id, 
+                    hostel_name
+                ) 
+        VALUES 
+            (?, ?, ?, ?, ?, ?)`
 
     db.query(q, [title, description, 'Pending', submission_date, student_id, hostel_name], (err, data) => {
         if (err) {
@@ -63,7 +107,7 @@ export const updateComplainStatus = (req, res) => {
 
     const { status } = req.body;
 
-    if(role=='student') {
+    if (role == 'student') {
         return res.status(403).json({ error: 'Unauthorized' })
     }
 

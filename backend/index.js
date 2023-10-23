@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use('/api/students', studentRoute);
 app.use('/api/caretakers', caretakerRoute);
 app.use('/api/wardens', wardenRoute);
-app.use('/api/:hostel/:student_id/complain', complainRoute);
+app.use('/api/complain', complainRoute);
 
 // Database connection
 db.connect((error) => {

@@ -26,7 +26,7 @@ const StudentsComplain = () => {
 
     // Send the complaint to the backend using Axios
     try {
-      const res = await axios.post(`http://localhost:8800/api/:${hostel_name}/:${student_id}/complain`, newComplaint);
+      const res = await axios.post(`http://localhost:8800/api/complain`, newComplaint);
       console.log('Complaint submitted successfully:', res.data);
     } catch (error) {
       console.error('Error submitting complaint:', error);
