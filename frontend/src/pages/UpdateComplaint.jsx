@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
@@ -13,6 +13,8 @@ const UpdateComplaint = () => {
 
     const [updatedDescription, setUpdatedDescription] = useState('')
 
+    const navigate = useNavigate()
+
     const handleUpdate = async () => {
         try {
             const res = await axios.put(`http://localhost:8800/api/complain/${complain_id}`, {
@@ -22,6 +24,7 @@ const UpdateComplaint = () => {
                 status: currentUser.status
             })
             console.log(res.data)
+            navigate(`/complaint/${complain_id}`)
         } catch (error) {
             console.log(error)
         }
