@@ -36,7 +36,8 @@ export const getComplain = (req, res) => {
 
     const { hostel } = req.query
 
-    const { complainId } = req.params
+    const idString = req.params.complaintId
+    const complainId = parseInt(idString.replace(':', ''), 10)
 
     const q = `
         SELECT 

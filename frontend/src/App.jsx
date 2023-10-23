@@ -15,6 +15,7 @@ import AboutUs from './pages/AboutUs';
 import Profile from './pages/Profile';
 import StudentsComplain from './pages/StudentsComplain';
 import AuthorityComplain from './pages/AuthorityComplain';
+import Complaint from './pages/Complaint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/authoritycomplain",
         element: <AuthorityComplain />,
+      },
+      {
+        path: "/complaint/:complaint_id",
+        element: <Complaint />,
       },
       {
         path: "/about",
