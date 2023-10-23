@@ -1,14 +1,19 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const StudentsComplain = () => {
 
   const authContext = useContext(AuthContext)
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const {student_id, hostel_name, role }= authContext.currentUser
+  
+  const [title, setTitle] = useState('');
+
+  const [description, setDescription] = useState('');
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +33,7 @@ const StudentsComplain = () => {
     try {
       const res = await axios.post(`http://localhost:8800/api/complain`, newComplaint);
       console.log('Complaint submitted successfully:', res.data);
+      navigate('/')
     } catch (error) {
       console.error('Error submitting complaint:', error);
     }

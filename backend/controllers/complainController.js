@@ -12,7 +12,8 @@ export const getComplains = (req, res) => {
             complaints.status,
             complaints.submission_date,
             complaints.hostel_name,
-            students.username AS student_username
+            students.username AS student_username,
+            complaints.student_id
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -47,7 +48,8 @@ export const getComplain = (req, res) => {
             complaints.status,
             complaints.submission_date,
             complaints.hostel_name,
-            students.username AS student_username
+            students.username AS student_username,
+            complaints.student_id
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -157,21 +159,12 @@ export const updateComplain = (req, res) => {
 
 export const deleteComplain = (req, res) => {
 
-    const { complaintId } = req.params;
-
-    const { status } = req.body;
-
-    if (role == 'caretaker' || role == 'warden') {
-        res.status(403).json({ error: 'Unauthorized' })
-    }
-
-    if (status === 'Solved') {
-        return res.status(400).json('Complaint is resolved!')
-    }
+    const idString = req.params.complaintId
+    const complainId = parseInt(idString.replace(':', ''), 10)
 
     const q = 'DELETE FROM complaints WHERE complaint_id = ?'
 
-    db.query(q, [complaintId], (err, data) => {
+    db.query(q, [complainId], (err, data) => {
         if (err) {
             return res.status(500).json(err);
         }

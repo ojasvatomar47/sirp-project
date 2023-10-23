@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
@@ -14,6 +14,8 @@ const Complaint = () => {
     const location = useLocation()
 
     const complaintId = location.pathname.split('/')[2]
+
+    const navigate = useNavigate()
 
     const formatSubmissionDateTime = (dateTimeString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -34,6 +36,16 @@ const Complaint = () => {
         fetchComplaint()
     }, [complaintId])
 
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:8800/api/complain/${complaintId}`)
+            console.log("Complain deleted")
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className='flex justify-center items-center'>
             <div className='bg-pink-600'>
@@ -42,7 +54,14 @@ const Complaint = () => {
                 <p>Status: {complaint.status}</p>
                 <p>Submitted by: {complaint.student_username}</p>
                 <p>Submission time: {formatSubmissionDateTime(complaint.submission_date)}</p>
-                <Link to={`/updateComplaint/:${complaint.complaint_id}`}><button>Update complaint</button></Link>
+                {
+                    currentUser.student_id === complaint.student_id
+                        &&
+                    (<div>
+                        <Link to={`/updateComplaint/:${complaint.complaint_id}`}><button>Update complaint</button></Link>
+                        <button onClick={handleDelete}>Delete complaint</button>
+                    </div>)
+                }
             </div>
         </div>
     )
