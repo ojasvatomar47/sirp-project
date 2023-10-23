@@ -18,7 +18,6 @@ const StudentsComplain = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Create an object with complaint data
     const newComplaint = {
       title,
       description,
@@ -29,7 +28,6 @@ const StudentsComplain = () => {
 
     console.log(newComplaint)
 
-    // Send the complaint to the backend using Axios
     try {
       const res = await axios.post(`http://localhost:8800/api/complain`, newComplaint);
       console.log('Complaint submitted successfully:', res.data);
@@ -38,7 +36,6 @@ const StudentsComplain = () => {
       console.error('Error submitting complaint:', error);
     }
 
-    // Clear the input fields
     setTitle('');
     setDescription('');
   };
