@@ -127,7 +127,8 @@ export const updateComplainStatus = (req, res) => {
 
 export const updateComplain = (req, res) => {
 
-    const { complaintId } = req.params;
+    const idString = req.params.complaintId
+    const complainId = parseInt(idString.replace(':', ''), 10)
 
     const { title, description, status, role } = req.body;
 
@@ -143,7 +144,7 @@ export const updateComplain = (req, res) => {
 
     const q = 'UPDATE complaints SET title = ?, description = ?, submission_date = ? WHERE complaint_id = ?'
 
-    db.query(q, [title, description, submission_date, complaintId], (err, data) => {
+    db.query(q, [title, description, submission_date, complainId], (err, data) => {
         if (err) {
             return res.status(500).json(err);
         }

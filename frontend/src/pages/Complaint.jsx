@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
@@ -42,6 +42,7 @@ const Complaint = () => {
                 <p>Status: {complaint.status}</p>
                 <p>Submitted by: {complaint.student_username}</p>
                 <p>Submission time: {formatSubmissionDateTime(complaint.submission_date)}</p>
+                <Link to={`/updateComplaint/:${complaint.complaint_id}`}><button>Update complaint</button></Link>
             </div>
         </div>
     )

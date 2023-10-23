@@ -18,14 +18,15 @@ import AuthorityComplain from './pages/AuthorityComplain';
 import Complaint from './pages/Complaint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import UpdateComplaint from './pages/UpdateComplaint';
 
 const Layout = () => {
-  
+
   return (
     <>
-    <Navbar/>
-    <Outlet/>
-    <Footer/>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
   )
 }
@@ -85,12 +86,16 @@ const router = createBrowserRouter([
     path: "/studentlogin",
     element: <StudentLogin />
   },
+  {
+    path: "/updateComplaint/:complain_id",
+    element: <UpdateComplaint />
+  },
 ])
 
 const App = () => {
   return (
     <div>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </div>
   )
 }
