@@ -8,6 +8,7 @@ import {
     createComplain,
     updateComplain,
     updateComplainStatus,
+    forwardToWarden,
     deleteComplain,
 } from '../controllers/complainController.js';
 
@@ -20,7 +21,7 @@ router.get('/', getComplains);
 router.get('/:complaintId', getComplain);
 
 // Get all complaints of a particular student
-router.get('/:studentId', studentComplains);
+router.get('/student/:studentId', studentComplains);
 
 // Get all the complaints which are pending
 router.get('/pending', getPendingComplains);
@@ -35,7 +36,10 @@ router.post('/', createComplain);
 router.put('/:complaintId', updateComplain);
 
 // Update a complaint's status by ID
-router.put('/:complaintId/status', updateComplainStatus);
+router.put('/status/:complaintId', updateComplainStatus);
+
+// Update a complaint's assigned_to attribute
+router.put('/forwardToWarden/:complaintId', forwardToWarden);
 
 // Delete a complaint by ID
 router.delete('/:complaintId', deleteComplain);

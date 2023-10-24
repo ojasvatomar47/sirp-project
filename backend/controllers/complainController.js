@@ -13,7 +13,8 @@ export const getComplains = (req, res) => {
             complaints.submission_date,
             complaints.hostel_name,
             students.username AS student_username,
-            complaints.student_id
+            complaints.student_id,
+            complaints.assigned_to
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -49,7 +50,8 @@ export const getComplain = (req, res) => {
             complaints.submission_date,
             complaints.hostel_name,
             students.username AS student_username,
-            complaints.student_id
+            complaints.student_id,
+            complaints.assigned_to
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -85,7 +87,8 @@ export const studentComplains = (req, res) => {
             complaints.submission_date,
             complaints.hostel_name,
             students.username AS student_username,
-            complaints.student_id
+            complaints.student_id,
+            complaints.assigned_to
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -100,7 +103,7 @@ export const studentComplains = (req, res) => {
             return res.status(404).json('No Complaints found')
         }
         else {
-            return res.status(200).json(data[0])
+            return res.status(200).json(data)
         }
     })
 }
@@ -118,7 +121,8 @@ export const getPendingComplains = (req, res) => {
             complaints.submission_date,
             complaints.hostel_name,
             students.username AS student_username,
-            complaints.student_id
+            complaints.student_id,
+            complaints.assigned_to
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -135,7 +139,7 @@ export const getPendingComplains = (req, res) => {
             return res.status(404).json('No pending complaints found')
         }
         else {
-            return res.status(200).json(data[0])
+            return res.status(200).json(data)
         }
     })
 }
@@ -153,7 +157,8 @@ export const getResolvedComplains = (req, res) => {
             complaints.submission_date,
             complaints.hostel_name,
             students.username AS student_username,
-            complaints.student_id
+            complaints.student_id,
+            complaints.assigned_to
         FROM
             complaints
         INNER JOIN students ON complaints.student_id = students.student_id
@@ -170,7 +175,7 @@ export const getResolvedComplains = (req, res) => {
             return res.status(404).json('No resolved complaints found')
         }
         else {
-            return res.status(200).json(data[0])
+            return res.status(200).json(data)
         }
     })
 }
@@ -194,12 +199,13 @@ export const createComplain = (req, res) => {
                     status, 
                     submission_date, 
                     student_id, 
-                    hostel_name
+                    hostel_name,
+                    assigned_to
                 ) 
         VALUES 
-            (?, ?, ?, ?, ?, ?)`
+            (?, ?, ?, ?, ?, ?, ?)`
 
-    db.query(q, [title, description, 'Pending', submission_date, student_id, hostel_name], (err, data) => {
+    db.query(q, [title, description, 'Pending', submission_date, student_id, hostel_name, 'Caretaker'], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } else {
@@ -259,6 +265,22 @@ export const updateComplain = (req, res) => {
         }
     }
     )
+}
+
+export const forwardToWarden = (req, res) => {
+    
+    const idString = req.params.complaintId
+    const complainId = parseInt(idString.replace(':', ''), 10)
+
+    const q = "UPDATE complaints SET assigned_to = ? WHERE complaint_id = ?"
+
+    db.query(q, ['Warden', complainId], (err, date) => {
+        if(err) {
+            return res.status(500).json(err)
+        } else {
+            return res.status(200).json('Complaint forwarded to warden')
+        }
+    })
 }
 
 export const deleteComplain = (req, res) => {
