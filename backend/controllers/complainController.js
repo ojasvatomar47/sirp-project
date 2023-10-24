@@ -71,6 +71,110 @@ export const getComplain = (req, res) => {
     })
 }
 
+export const studentComplains = (req, res) => {
+
+    const idString = req.params.studentId
+    const studentId = parseInt(idString.replace(':', ''), 10)
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username,
+            complaints.student_id
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.student_id = ?
+    `
+
+    db.query(q, [studentId], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } if (data.length === 0) {
+            return res.status(404).json('No Complaints found')
+        }
+        else {
+            return res.status(200).json(data[0])
+        }
+    })
+}
+
+export const getPendingComplains = (req, res) => {
+
+    const { hostel } = req.query
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username,
+            complaints.student_id
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.hostel_name = ?
+        AND
+            complaints.status = ?
+    `
+
+    db.query(q, [hostel, 'Pending'], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } if (data.length === 0) {
+            return res.status(404).json('No pending complaints found')
+        }
+        else {
+            return res.status(200).json(data[0])
+        }
+    })
+}
+
+export const getResolvedComplains = (req, res) => {
+
+    const { hostel } = req.query
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username,
+            complaints.student_id
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.hostel_name = ?
+        AND
+            complaints.status = ?
+    `
+
+    db.query(q, [hostel, 'Solved'], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } if (data.length === 0) {
+            return res.status(404).json('No resolved complaints found')
+        }
+        else {
+            return res.status(200).json(data[0])
+        }
+    })
+}
+
 export const createComplain = (req, res) => {
 
     const { title, description, role, student_id, hostel_name } = req.body
