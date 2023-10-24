@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser, logout } = useContext(AuthContext)
 
   const [complaints, setComplaints] = useState([])
+
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -29,6 +31,18 @@ const Home = () => {
     }
   }, [currentUser])
 
+  const handleLogout = async (event) => {
+    event.preventDefault()
+
+    try {
+      await logout(currentUser.role)
+      console.log("User has been logged out successfully")
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const formatSubmissionDateTime = (dateTimeString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateTimeString).toLocaleDateString(undefined, options);
@@ -38,6 +52,7 @@ const Home = () => {
 
   return (
     <div>
+      <button onClick={handleLogout}>logout</button>
       <h1>Complaints</h1>
       <ul className='flex flex-col gap-10 justify-center items-center'>
         {complaints.map((complaint) => (

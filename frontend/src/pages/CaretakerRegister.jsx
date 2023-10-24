@@ -14,6 +14,8 @@ const CaretakerRegister = () => {
 
   const [err, setErr] = useState(null)
 
+  const navigate = useNavigate()
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
@@ -25,6 +27,7 @@ const CaretakerRegister = () => {
     try {
       await axios.post('http://localhost:8800/api/caretakers/register', formData)
       console.log("Registration successfull")
+      navigate('/caretakerlogin')
     } catch (error) {
       setErr(err.response.data)
       console.log("Registration failed")

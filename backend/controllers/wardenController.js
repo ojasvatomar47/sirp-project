@@ -45,9 +45,11 @@ export const wardenRegister = (req, res) => {
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
+            const date = new Date()
+
             // Insert the new warden with role 'warden' into the database
-            const insertQuery = "INSERT INTO wardens (`email`, `password`, `name`, `hostel_name`, `role`) VALUES (?)";
-            const values = [req.body.email, hashedPassword, req.body.name, hostelName, 'warden'];
+            const insertQuery = "INSERT INTO wardens (`email`, `password`, `name`, `hostel_name`, `role`, `registration_date`) VALUES (?)";
+            const values = [req.body.email, hashedPassword, req.body.name, hostelName, 'warden', date];
 
             db.query(insertQuery, [values], (insertErr) => {
                 if (insertErr) {

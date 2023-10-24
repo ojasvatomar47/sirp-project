@@ -27,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
         setCurrentUser(res.data);
     };
 
-    const logout = async (formData, role) => {
+    const logout = async (role) => {
         let endpoint;
 
         // Determine the API endpoint based on the role
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
             endpoint = "http://localhost:8800/api/wardens/logout";
         }
 
-        const res = await axios.post(endpoint, formData);
+        const res = await axios.post(endpoint);
         setCurrentUser(null);
     };
 

@@ -24,10 +24,12 @@ export const studentRegister = (req, res) => {
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-  // Insert the new student with role 'student' into the database
-  q = "INSERT INTO students (`username`, `email`, `password`, `name`, `hostel_name`, `role`) VALUES (?)";
+  const date = new Date()
 
-  const values = [req.body.username, req.body.email, hashedPassword, req.body.name, req.body.hostel, 'student'];
+  // Insert the new student with role 'student' into the database
+  q = "INSERT INTO students (`username`, `email`, `password`, `name`, `hostel_name`, `role`, `registration_date`) VALUES (?)";
+
+  const values = [req.body.username, req.body.email, hashedPassword, req.body.name, req.body.hostel, 'student', date];
 
   db.query(q, [values], (err, data) => {
     if (err) {

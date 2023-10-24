@@ -15,6 +15,8 @@ const StudentRegister = () => {
 
   const [err, setErr] = useState(null)
 
+  const navigate = useNavigate()
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
@@ -25,6 +27,7 @@ const StudentRegister = () => {
     try {
       await axios.post('http://localhost:8800/api/students/register', formData)
       console.log("Registration successfull")
+      navigate('/studentlogin')
     } catch (error) {
       setErr(err.response.data)
       console.log("Registration failed")

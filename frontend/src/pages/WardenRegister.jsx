@@ -14,6 +14,8 @@ const WardenRegister = () => {
 
   const [err, setErr] = useState(null)
 
+  const navigate = useNavigate()
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
@@ -25,6 +27,7 @@ const WardenRegister = () => {
     try {
       await axios.post('http://localhost:8800/api/wardens/register', formData)
       console.log("Registration successfull")
+      navigate('/wardenlogin')
     } catch (error) {
       setErr(err.response.data)
       console.log("Registration failed")
