@@ -6,6 +6,7 @@ import studentRoute from './routes/studentRoute.js';
 import caretakerRoute from './routes/caretakerRoute.js';
 import wardenRoute from './routes/wardenRoute.js';
 import complainRoute from './routes/complainRoute.js';
+import noticeRoute from './routes/noticeRoute.js';
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -31,6 +32,7 @@ app.use('/api/students', studentRoute);
 app.use('/api/caretakers', caretakerRoute);
 app.use('/api/wardens', wardenRoute);
 app.use('/api/complain', complainRoute);
+app.use('/api/notice', noticeRoute)
 
 // Database connection
 db.connect((error) => {
