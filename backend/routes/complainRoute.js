@@ -18,7 +18,7 @@ const router = express.Router();
 router.get('/', getComplains);
 
 // Get a single complaint
-router.get('/:complaintId', getComplain);
+router.get('/singlecomplaint/:complaintId', getComplain);
 
 // Get all complaints of a particular student
 router.get('/student/:studentId', studentComplains);

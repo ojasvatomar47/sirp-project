@@ -110,7 +110,7 @@ export const studentComplains = (req, res) => {
 
 export const getPendingComplains = (req, res) => {
 
-    const { hostel } = req.query
+    const { hostelName } = req.query
 
     const q = `
         SELECT 
@@ -132,7 +132,7 @@ export const getPendingComplains = (req, res) => {
             complaints.status = ?
     `
 
-    db.query(q, [hostel, 'Pending'], (err, data) => {
+    db.query(q, [hostelName, 'Pending'], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } if (data.length === 0) {
@@ -146,7 +146,7 @@ export const getPendingComplains = (req, res) => {
 
 export const getResolvedComplains = (req, res) => {
 
-    const { hostel } = req.query
+    const { hostelName } = req.query
 
     const q = `
         SELECT 
@@ -168,7 +168,7 @@ export const getResolvedComplains = (req, res) => {
             complaints.status = ?
     `
 
-    db.query(q, [hostel, 'Solved'], (err, data) => {
+    db.query(q, [hostelName, 'Solved'], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } if (data.length === 0) {

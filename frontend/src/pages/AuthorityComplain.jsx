@@ -1,29 +1,77 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/authContext'
+import axios from 'axios'
 
-function AuthorityComplain() {
-    const [complaints, setComplaints] = useState(defaultComplaints);
+const AuthorityComplain = () => {
+
+    const [pendingComplaints, setPendingComplaints] = useState([])
+
+    const [resolvedComplaints, setResolvedComplaints] = useState([])
+
+    const { currentUser } = useContext(AuthContext)
+
+    const { hostel_name } = currentUser
+
     const [showInProgress, setShowInProgress] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false);
 
-    function ComplaintsList({ complaints }) {
+    useEffect(() => {
+
+        const fetchPendingComplaints = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8800/api/complain/pending`, { params: { hostelName: hostel_name } })
+                setPendingComplaints(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchPendingComplaints()
+    }, [currentUser])
+
+    useEffect(() => {
+
+        const fetchResolvedComplaints = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8800/api/complain/resolved`, { params: { hostelName: hostel_name } })
+                setResolvedComplaints(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchResolvedComplaints()
+    }, [currentUser])
+
+    const formatSubmissionDateTime = (dateTimeString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateTimeString).toLocaleDateString(undefined, options);
+        const time = new Date(dateTimeString).toLocaleTimeString();
+        return `${date} ${time}`;
+    };
+
+    const ComplaintsList = ({ complaints }) => {
         return (
             <div className="flex flex-col overflow-y-auto max-h-[calc(100vh-200px)] bg-gray-200">
-                {complaints.map((complaint, index) => (
-                    <div key={index} className="mb-4 bg-white p-4 rounded-lg shadow-lg">
+                {complaints.map((complaint) => (
+                    <div key={complaint.complaint_id} className="mb-4 bg-white p-4 rounded-lg shadow-lg">
                         {/* Display the username */}
-                        <h3 className="text-gray-800 font-medium mb-2">{complaint.username}</h3>
-                        <h2 className="text-xl mb-2 font-semibold">{complaint.issue}</h2>
-                        <div className='mt-1 text-black text-sm mb-2'>
-                            <p className='text-sm'>{complaint.description}</p>
-                            <p className='text-xs'>{complaint.time}</p>
-                        </div>
+                        <Link to={`/complaint/:${complaint.complaint_id}`}>
+                            <h3 className="text-gray-800 font-medium mb-2">{complaint.student_username}</h3>
+                            <h2 className="text-xl mb-2 font-semibold">{complaint.title}</h2>
+                            <div className='mt-1 text-black text-sm mb-2'>
+                                <p className='text-sm'>{complaint.description}</p>
+                                <p className='text-xs'>{formatSubmissionDateTime(complaint.submission_date)}</p>
+                            </div>
+                        </Link>
                         <div className="flex justify-between items-center">
                             <div className="mb-2">
-                                <span className={`inline-block px-3 py-1 rounded-full text-white ${getBadgeClass(complaint.progress)}`}>
-                                    {getProgressText(complaint.progress)}
+                                <span className={`inline-block px-3 py-1 rounded-full text-white ${getBadgeClass(complaint.status)}`}>
+                                    {getProgressText(complaint.status)}
                                 </span>
                             </div>
-                            {complaint.progress <= 66 && (
+                            {complaint.status === 'Pending' && (
                                 <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
                                     Resolved
                                 </button>
@@ -35,15 +83,15 @@ function AuthorityComplain() {
         );
     }
 
-function getBadgeClass(progress) {
-        if (progress <= 33) return 'bg-red-500';
-        if (progress <= 66) return 'bg-yellow-500';
+    const getBadgeClass = (progress) => {
+        if (progress === 'Solved') return 'bg-red-500';
+        if (progress === 'Pending') return 'bg-yellow-500';
         return 'bg-green-500';
     }
 
-    function getProgressText(progress) {
-        if (progress <= 33) return 'Submitted';
-        if (progress <= 66) return 'In Progress';
+    const getProgressText = (progress) => {
+        if (progress === 'Solved') return 'Resolved';
+        if (progress === 'Pending') return 'In Progress';
         return 'Done';
     }
 
@@ -59,7 +107,7 @@ function getBadgeClass(progress) {
                 {(showInProgress || window.innerWidth >= 1024) && (
                     <>
                         <h2 className="hidden lg:block text-2xl mb-4">Work in Progress</h2>
-                        <ComplaintsList complaints={defaultComplaints.filter(complaint => complaint.progress > 33 && complaint.progress <= 66)} />
+                        <ComplaintsList complaints={pendingComplaints} />
                     </>
                 )}
             </div>
@@ -74,7 +122,7 @@ function getBadgeClass(progress) {
                 {(showCompleted || window.innerWidth >= 1024) && (
                     <>
                         <h2 className="hidden lg:block text-2xl mb-4">Completed</h2>
-                        <ComplaintsList complaints={defaultComplaints.filter(complaint => complaint.progress > 66)} />
+                        <ComplaintsList complaints={resolvedComplaints} />
                     </>
                 )}
             </div>
@@ -100,39 +148,5 @@ function getBadgeClass(progress) {
         </div >
     );
 }
-
-const defaultComplaints = [
-    {
-        username: "@Parth",
-        issue: "Water problem",
-        description: "KJHKJHKJHK",
-        progress: 75,
-        time: "1 day ago",
-        status: "In Progress"
-    },
-    {
-        username: "@Parth",
-        issue: "Water",
-        description: "KJHKJHKJHK",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-    {
-        username: "@Utkarsh",
-        issue: "Water",
-        description: "KJHKJHKJHK",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-    {
-        issue: "Water",
-        description: "KJHKJHKJHK",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-];
 
 export default AuthorityComplain;
