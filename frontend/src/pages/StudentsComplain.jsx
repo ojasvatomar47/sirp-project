@@ -1,22 +1,54 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../context/authContext'
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
-function StudentComplain() {
-    const [complaint, setComplaint] = useState({
-        title: '',
-        description: ''
-    });
-    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+const StudentComplain = () => {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Complaint submitted:', complaint);
+    const authContext = useContext(AuthContext)
+
+    const { currentUser } = authContext
+
+    const { student_id, hostel_name, role } = currentUser
+
+    const [title, setTitle] = useState('');
+
+    const [description, setDescription] = useState('');
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const newComplaint = {
+            title,
+            description,
+            role,
+            student_id,
+            hostel_name,
+        };
+
+        console.log(newComplaint)
+
+        try {
+            const res = await axios.post(`http://localhost:8800/api/complain`, newComplaint);
+            console.log('Complaint submitted successfully:', res.data);
+            navigate('/')
+        } catch (error) {
+            console.error('Error submitting complaint:', error);
+        }
+
+        setTitle('');
+        setDescription('');
     };
+
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
     return (
         <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative">
-            <button 
-                onClick={() => setIsSidebarVisible(!isSidebarVisible)} 
+            <button
+                onClick={() => setIsSidebarVisible(!isSidebarVisible)}
                 className="md:hidden absolute top-4 left-4 z-50 p-2 bg-white rounded-full"
             >
                 {isSidebarVisible ? '←' : '→'}
@@ -38,9 +70,9 @@ function StudentComplain() {
                             className="mt-1 p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
                             id="title"
                             type="text"
-                            value={complaint.title}
+                            value={title}
                             placeholder="Enter complaint title..."
-                            onChange={e => setComplaint({ ...complaint, title: e.target.value })}
+                            onChange={(e) => setTitle(e.target.value)}
                         />
                     </div>
                     <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6">
@@ -49,9 +81,9 @@ function StudentComplain() {
                             className="mt-1 p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
                             id="description"
                             rows="3 sm:rows-3 md:rows-4 lg:rows-5"
-                            value={complaint.description}
+                            value={description}
                             placeholder="Describe the issue in detail..."
-                            onChange={e => setComplaint({ ...complaint, description: e.target.value })}
+                            onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </div>
                     <div className="text-right">

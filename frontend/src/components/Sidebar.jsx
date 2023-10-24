@@ -1,35 +1,138 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../context/authContext'
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
-function Sidebar({ complaints = defaultComplaints, isSidebarVisible }) {
+const Sidebar = ({ isSidebarVisible }) => {
+
+    const authContext = useContext(AuthContext)
+
+    const { currentUser } = authContext
+
+    const { student_id, hostel_name, role } = currentUser
+
+    const [studentComplaints, setStudentComplaints] = useState([])
+
+    const navigate = useNavigate()
+
+    const getBadgeClass = (progress) => {
+        if (progress === 'Solved') return 'bg-red-500';
+        if (progress === 'Pending') return 'bg-yellow-500';
+        return 'bg-green-500';
+    }
+
+    const getProgressText = (progress) => {
+        if (progress === 'Solved') return 'Resolved';
+        if (progress === 'Pending') return 'In Progress';
+        return 'Done';
+    }
+
+    const formatSubmissionDateTime = (dateTimeString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateTimeString).toLocaleDateString(undefined, options);
+        const time = new Date(dateTimeString).toLocaleTimeString();
+        return `${date} ${time}`;
+    };
+
+    const submissionDate = (date) => {
+        const subDate = new Date(date)
+        // console.log("Submission date: "+subDate)
+        return subDate
+    }
+
+    const twoDaysAgo = (date) => {
+        const subDate = new Date(date)
+        const tda = new Date(subDate)
+        tda.setDate(subDate.getDate() - 2)
+        // console.log("Two days ago: "+tda)
+        return tda
+    }
+
+    useEffect(() => {
+
+        if (currentUser) {
+
+            const { student_id } = currentUser
+
+            const fetchStudentComplaints = async () => {
+                try {
+                    const res = await axios.get(`http://localhost:8800/api/complain/student/${student_id}`)
+                    setStudentComplaints(res.data)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            fetchStudentComplaints()
+
+        }
+    }, [currentUser])
+
+    const fwdToWarden = async (complaintId) => {
+
+        console.log(complaintId)
+
+        try {
+            const res = await axios.put(`http://localhost:8800/api/complain/forwardToWarden/${complaintId}`)
+            alert("Complaint forwarded to warden successfully");
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDelete = async (complaintId) => {
+        try {
+            await axios.delete(`http://localhost:8800/api/complain/${complaintId}`)
+            console.log("Complain deleted")
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className={`flex flex-col flex-no-wrap w-full sm:w-64 md:w-1/4 lg:w-1/4 h-screen p-4 bg-gray-100 overflow-y-auto transform ${isSidebarVisible ? '' : '-translate-x-full'} transition-transform duration-300 md:translate-x-0 z-40`}>
             <h1 className="text-3xl font-bold mb-6 text-black">Previous Complaints</h1>
-            {complaints.map((complaint, index) => (
+            {studentComplaints.map((complaint) => (
                 <div
-                    key={index}
+                    key={complaint.complaint_id}
                     className="mb-6 bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-2"
                 >
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-xl font-semibold">{complaint.issue}</h2>
-                        <span className={`inline-block px-4 py-1 rounded-full text-sm text-white ${getBadgeClass(complaint.progress)}`}>
-                            {getProgressText(complaint.progress)}
-                        </span>
-                    </div>
-                    <p className='text-xs text-gray-500 font-semibold'>{complaint.username}</p>
-                    <div className='text-black text-sm'>
-                        <p className='text-sm truncate w-[150px]'>
-                            {complaint.description}
-                        </p>
-                        <p className='text-xs mt-1'>{complaint.time}</p>
-                    </div>
+                    <Link to={`/complaint/:${complaint.complaint_id}`}>
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-xl font-semibold">{complaint.title}</h2>
+                            <span className={`inline-block px-4 py-1 rounded-full text-sm text-white ${getBadgeClass(complaint.progress)}`}>
+                                {getProgressText(complaint.status)}
+                            </span>
+                        </div>
+                        <p className='text-xs text-gray-500 font-semibold'>@{complaint.student_username}</p>
+                        <div className='text-black text-sm'>
+                            <p className='text-sm truncate w-[150px]'>
+                                {complaint.description}
+                            </p>
+                            <p className='text-xs mt-1'>{formatSubmissionDateTime(complaint.submission_date)}</p>
+                        </div>
+                    </Link>
                     <div className={`flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2`}>
-                        <button className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
-                            Forward to Warden
-                        </button>
-                        <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
-                            Upgrade
-                        </button>
-                        <button className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
+                        {
+                            (
+                                complaint.assigned_to === 'Caretaker'
+                                &&
+                                submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date)
+                            )
+                            &&
+                            <button onClick={() => fwdToWarden(complaint.complaint_id)} className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
+                                Forward to Warden
+                            </button>
+                        }
+
+                        <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
+                            <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
+                                Update
+                            </button>
+                        </Link>
+                        <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
                             Delete
                         </button>
                     </div>
@@ -38,112 +141,5 @@ function Sidebar({ complaints = defaultComplaints, isSidebarVisible }) {
         </div>
     );
 }
-
-
-function getBadgeClass(progress) {
-    if (progress <= 33) return 'bg-red-500';
-    if (progress <= 66) return 'bg-yellow-500';
-    return 'bg-green-500';
-}
-
-function getProgressText(progress) {
-    if (progress <= 33) return 'Submitted';
-    if (progress <= 66) return 'In Progress';
-    return 'Done';
-}
-
-const defaultComplaints = [
-    {
-        username: "@Parth",
-        issue: "Water problem",
-        description: "KJHKJHKJHkfndsflkgnkdfngkndflkgnlksndblkndflnglkdfnlndlnilnionnklniK",
-        progress: 75,
-        time: "1 day ago",
-        status: "In Progress"
-    },
-    {
-        username: "@Parth",
-        issue: "Water",
-        description: "KJHKJHKJHKdfystyhftsysysyertertytyyyyy",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-    {
-        username: "@Utkarsh",
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        username: "@Darpan",
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        username: "@Utkarsh",
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-
-    {
-        username: "@Utkarsh",
-        issue: "Water",
-        description: "KJHKJHKJHK",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-    {
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        issue: "Water",
-        description: "KJHKJHKJHK",
-        progress: 40,
-        time: "2 days ago",
-        status: "Done"
-    },
-    {
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-    {
-        issue: "Wi-Fi Outage",
-        description: "KJHKJHKJHK",
-        progress: 20,
-        time: "3 hours ago",
-        status: "Submitted"
-    },
-];
 
 export default Sidebar;
