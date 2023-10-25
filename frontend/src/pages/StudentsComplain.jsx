@@ -34,7 +34,9 @@ const StudentComplain = () => {
         try {
             const res = await axios.post(`http://localhost:8800/api/complain`, newComplaint);
             console.log('Complaint submitted successfully:', res.data);
-            navigate('/')
+            alert(`New Complaint filed from @${currentUser.username}`)
+            window.location.reload()
+            // navigate('/studentscomplain')
         } catch (error) {
             console.error('Error submitting complaint:', error);
         }
@@ -61,28 +63,28 @@ const StudentComplain = () => {
                 "rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-4/5 md:w-2/3 lg:w-3/4"
             }>
                 <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-center text-gray-800">
-                    Complaint Form
+                    Welcome <span className='underline'>{currentUser.name}</span>, Please Enter Your Complaint
                 </h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6">
                         <label className="block text-lg lg:text-xl font-medium text-gray-700" htmlFor="title">Title:</label>
                         <input
-                            className="mt-1 p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
+                            className="mt-1 capitalize p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
                             id="title"
                             type="text"
                             value={title}
-                            placeholder="Enter complaint title..."
+                            placeholder="Enter complaint title"
                             onChange={(e) => setTitle(e.target.value)}
                         />
                     </div>
                     <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6">
                         <label className="block text-lg lg:text-xl font-medium text-gray-700" htmlFor="description">Description:</label>
                         <textarea
-                            className="mt-1 p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
+                            className="mt-1 capitalize p-2 sm:p-2.5 md:p-3 lg:p-4 w-full border rounded-md transition-shadow focus:shadow-outline focus:outline-none"
                             id="description"
                             rows="3 sm:rows-3 md:rows-4 lg:rows-5"
                             value={description}
-                            placeholder="Describe the issue in detail..."
+                            placeholder="Describe the issue in detail"
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </div>

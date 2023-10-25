@@ -93,7 +93,7 @@ const Sidebar = ({ isSidebarVisible }) => {
 
     return (
         <div className={`flex flex-col flex-no-wrap w-full sm:w-64 md:w-1/4 lg:w-1/4 h-screen p-4 bg-gray-100 overflow-y-auto transform ${isSidebarVisible ? '' : '-translate-x-full'} transition-transform duration-300 md:translate-x-0 z-40`}>
-            <h1 className="text-3xl font-bold mb-6 text-black">Previous Complaints</h1>
+            <h1 className="text-3xl font-bold mb-6 text-black">Your Complaints:</h1>
             {studentComplaints.map((complaint) => (
                 <div
                     key={complaint.complaint_id}

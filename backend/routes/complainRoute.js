@@ -14,34 +14,34 @@ import {
 
 const router = express.Router();
 
-// Get all complaints of a paricular hostel
+// Get all complaints of a paricular hostel (checked)
 router.get('/', getComplains);
 
-// Get a single complaint
+// Get a single complaint (checked)
 router.get('/singlecomplaint/:complaintId', getComplain);
 
-// Get all complaints of a particular student
+// Get all complaints of a particular student (checked)
 router.get('/student/:studentId', studentComplains);
 
-// Get all the complaints which are pending
+// Get all the complaints which are pending (checked)
 router.get('/pending', getPendingComplains);
 
-// Get all the complaints which are resolved
+// Get all the complaints which are resolved (checked)
 router.get('/resolved', getResolvedComplains);
 
-// Create a new complaint 
+// Create a new complaint (checked)
 router.post('/', createComplain);
 
-// Update a complaint by ID 
+// Update a complaint by ID (checked)
 router.put('/:complaintId', updateComplain);
 
-// Update a complaint's status by ID
+// Update a complaint's status by ID (checked)
 router.put('/status/:complaintId', updateComplainStatus);
 
-// Update a complaint's assigned_to attribute
+// Update a complaint's assigned_to attribute (checked)
 router.put('/forwardToWarden/:complaintId', forwardToWarden);
 
-// Delete a complaint by ID
+// Delete a complaint by ID (checked)
 router.delete('/:complaintId', deleteComplain);
 
 export default router;

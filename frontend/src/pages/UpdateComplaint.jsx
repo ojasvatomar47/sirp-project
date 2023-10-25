@@ -38,7 +38,7 @@ const UpdateComplaint = () => {
                 "rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-4/5 md:w-2/3 lg:w-3/4"
             }>
                 <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-center text-gray-800">
-                    Update Your Complaint
+                    Hi <span className='underline'>{currentUser.name}</span>, feel free to update your complaint
                 </h1>
                 <form onSubmit={handleUpdate}>
                     <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6">

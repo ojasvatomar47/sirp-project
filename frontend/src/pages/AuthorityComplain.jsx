@@ -11,6 +11,8 @@ const AuthorityComplain = () => {
 
     const { currentUser } = useContext(AuthContext)
 
+    const navigate = useNavigate()
+
     const { hostel_name } = currentUser
 
     const [showInProgress, setShowInProgress] = useState(false);
@@ -51,6 +53,17 @@ const AuthorityComplain = () => {
         return `${date} ${time}`;
     };
 
+    const handleStatus = async (complaintId, updateTo) => {
+
+        try {
+            const res = await axios.put(`http://localhost:8800/api/complain/status/${complaintId}`, { status: updateTo })
+            console.log(res.data)
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const ComplaintsList = ({ complaints }) => {
         return (
             <div className="flex flex-col overflow-y-auto max-h-[calc(100vh-200px)] bg-gray-200">
@@ -71,11 +84,20 @@ const AuthorityComplain = () => {
                                     {getProgressText(complaint.status)}
                                 </span>
                             </div>
-                            {complaint.status === 'Pending' && (
-                                <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
-                                    Resolved
-                                </button>
-                            )}
+                            {complaint.status === 'Pending'
+                                ?
+                                (
+                                    <button onClick={() => handleStatus(complaint.complaint_id, 'Solved')} className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                                        Resolved
+                                    </button>
+                                )
+                                :
+                                (
+                                    <button onClick={() => handleStatus(complaint.complaint_id, 'Pending')} className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                                        In Progress
+                                    </button>
+                                )
+                            }
                         </div>
                     </div>
                 ))}

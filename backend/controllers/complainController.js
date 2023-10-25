@@ -216,17 +216,14 @@ export const createComplain = (req, res) => {
 
 export const updateComplainStatus = (req, res) => {
 
-    const { complaintId } = req.params;
+    const idString = req.params.complaintId
+    const complainId = parseInt(idString.replace(':', ''), 10)
 
     const { status } = req.body;
 
-    if (role == 'student') {
-        return res.status(403).json({ error: 'Unauthorized' })
-    }
-
     const q = 'UPDATE complaints SET status = ? WHERE complaint_id = ?'
 
-    db.query(q, [status, complaintId], (err, data) => {
+    db.query(q, [status, complainId], (err, data) => {
         if (err) {
             return res.status(500).json(err);
         }
