@@ -20,13 +20,13 @@ const Complaint = () => {
     const getBadgeClass = (progress) => {
         if (progress === 'Solved') return 'bg-red-500';
         if (progress === 'Pending') return 'bg-yellow-500';
-        return 'bg-green-500';
+        return 'bg-pink-300';
     }
 
     const getProgressText = (progress) => {
         if (progress === 'Solved') return 'Resolved';
         if (progress === 'Pending') return 'In Progress';
-        return 'Done';
+        return 'Escalated';
     }
 
     const formatSubmissionDateTime = (dateTimeString) => {

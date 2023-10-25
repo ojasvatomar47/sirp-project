@@ -20,6 +20,7 @@ import Complaint from './pages/Complaint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import UpdateComplaint from './pages/UpdateComplaint';
+import Notice from './pages/Notice';
 
 const Layout = () => {
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/complaint/:complaint_id",
         element: <Complaint />,
+      },
+      {
+        path: "/notice/:notice_id",
+        element: <Notice />,
       },
       {
         path: "/about",

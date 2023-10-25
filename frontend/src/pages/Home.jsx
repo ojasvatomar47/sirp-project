@@ -9,6 +9,8 @@ const Home = () => {
 
   const [complaints, setComplaints] = useState([])
 
+  const [notices, setNotices] = useState([])
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,6 +29,26 @@ const Home = () => {
       }
 
       fetchComplaints()
+
+    }
+  }, [currentUser])
+
+  useEffect(() => {
+
+    if (currentUser) {
+
+      const { hostel_name } = currentUser
+
+      const fetchNotices = async () => {
+        try {
+          const res = await axios.get(`http://localhost:8800/api/notice`, { params: { hostel: hostel_name } })
+          setNotices(res.data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      fetchNotices()
 
     }
   }, [currentUser])
@@ -64,6 +86,22 @@ const Home = () => {
                 <p>Status: {complaint.status}</p>
                 <p>Submitted by: {complaint.student_username}</p>
                 <p>Submission time: {formatSubmissionDateTime(complaint.submission_date)}</p>
+              </li>
+            </Link>
+          </div>
+        ))}
+      </ul>
+
+      <h1>Notices</h1>
+      <ul className='flex flex-col gap-10 justify-center items-center'>
+        {notices.map((notice) => (
+          <div key={notice.notice_id}>
+            <Link to={`/notice/:${notice.notice_id}`}>
+              <li key={notice.notice_id} className='bg-pink-600'>
+                <h3>{notice.title}</h3>
+                <p>{notice.content}</p>
+                <p>Posted by: {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</p>
+                <p>Submission time: {formatSubmissionDateTime(notice.date)}</p>
               </li>
             </Link>
           </div>
