@@ -1,5 +1,7 @@
 import { db } from "../db/db.js";
 
+// FUNCTION: Get all the notices of a particular hostel
+// ACCESS TO: ALL
 export const getNotices = (req, res) => {
 
     const { hostel } = req.query
@@ -18,6 +20,8 @@ export const getNotices = (req, res) => {
 
 }
 
+// FUNCTION: Get a particular notice
+// ACCESS TO: ALL
 export const getNotice = (req, res) => {
 
     const idString = req.params.noticeId
@@ -37,6 +41,8 @@ export const getNotice = (req, res) => {
 
 }
 
+// FUNCTION: Post a notice
+// ACCESS TO: CARETAKER/WARDEN
 export const postNotice = (req, res) => {
 
     const { hostel, title, content, user_id, user_role } = req.body
@@ -55,6 +61,8 @@ export const postNotice = (req, res) => {
 
 }
 
+// FUNCTION: Update a notice
+// ACCESS TO: CARETAKER/WARDEN
 export const updateNotice = (req, res) => {
 
     const { title, content } = req.body
@@ -76,6 +84,8 @@ export const updateNotice = (req, res) => {
 
 }
 
+// FUNCTION: Delete a notice
+// ACCESS TO: CARETAKER/WARDEN
 export const deleteNotice = (req, res) => {
 
     const idString = req.params.noticeId

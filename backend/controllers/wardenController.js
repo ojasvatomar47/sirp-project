@@ -5,9 +5,10 @@ import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
-// Warden registration
+// FUNCTION: Warden Registration
 export const wardenRegister = (req, res) => {
-    // Check if the user (warden) already exists
+
+    // CHECK WHETHER THE WARDEN ALREADY EXISTS IN THE TABLE
     var checkUserQuery = "SELECT * FROM wardens WHERE email = ?";
 
     db.query(checkUserQuery, [req.body.email], (err, existingWardenData) => {
@@ -19,7 +20,7 @@ export const wardenRegister = (req, res) => {
             return res.status(409).json("Warden already exists!");
         }
 
-        // Verify if the warden's details match those in the hostels table
+        // VERIFYING IF THE ENTERED WARDEN AND THE HOSTEL'S WARDEN MATCHES OR NOT
         const hostelName = req.body.hostel;
         const wardenName = req.body.name;
         const wardenEmail = req.body.email;
@@ -41,13 +42,13 @@ export const wardenRegister = (req, res) => {
                 return res.status(403).json("Warden's details do not match the hostel information.");
             }
 
-            // Generate a salt and hash the warden's password for security
+            // GENERATE A HASHED PASSWORD FOR THE ENTERED PASSWORD
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
             const date = new Date()
 
-            // Insert the new warden with role 'warden' into the database
+            // INSERTING A NEW WARDEN IN THE TABLE
             const insertQuery = "INSERT INTO wardens (`email`, `password`, `name`, `hostel_name`, `role`, `registration_date`) VALUES (?)";
             const values = [req.body.email, hashedPassword, req.body.name, hostelName, 'warden', date];
 
@@ -62,9 +63,12 @@ export const wardenRegister = (req, res) => {
     });
 };
 
-// Warden login
+// FUNCTION: Warden LogIn
 export const wardenLogin = (req, res) => {
+
+    // CHECKING IF THE WARDEN EXISTS OR NOT
     var q = "SELECT * FROM wardens WHERE email = ?";
+
     db.query(q, [req.body.email], (err, data) => {
         if (err) {
             return res.status(500).json(err);
@@ -73,12 +77,14 @@ export const wardenLogin = (req, res) => {
             return res.status(404).json("User not found!");
         }
 
+        // CHECKING IF THE ENTERED PASSWORD MATCHED THE WARDEN'S PASSWORD OR NOT
         const checkPassword = bcrypt.compareSync(req.body.password, data[0].password);
 
         if (!checkPassword) {
             return res.status(400).json("Wrong password or username");
         }
 
+        // ASSIGNING A TOKEN TO THE WARDEN
         const token = jwt.sign({ id: data[0].warden_id, role: data[0].role }, "secretkey");
         const { password, ...other } = data[0];
 
@@ -88,7 +94,7 @@ export const wardenLogin = (req, res) => {
     });
 };
 
-// Warden logout
+// FUNCTION: Warden LogOut
 export const wardenLogout = (req, res) => {
     res.clearCookie("accessToken", {
         secure: true,

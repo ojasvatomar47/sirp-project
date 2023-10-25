@@ -7,29 +7,32 @@ import {
 
 const router = express.Router();
 
-// Middleware for role-based authentication (checks if the user's role is 'Warden')
+// ROLE: Middleware
+// FUNCTIONALITY: Role-Based-Authentication
 router.use((req, res, next) => {
-    // Simulate checking the user's role from the JWT token or any other authentication mechanism
-    const userRole = 'Warden'; // In a real application, this would come from the JWT token
 
-    // Role-based logic
+    const userRole = 'Warden';
+
     if (userRole === 'Warden') {
-        next(); // If the user is a warden, grant access
+        next();
     } else {
-        res.status(403).json('Access denied'); // Deny access for non-warden roles
+        res.status(403).json('Access denied');
     }
 });
 
-// Public route for warden registration
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Warden Registration
 router.post('/register', wardenRegister);
 
-// Public route for warden login
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Warden Registration
 router.post('/login', wardenLogin);
 
-// Protected route for warden logout
+// METHOD: POST
+// ACCESS: Private
+// FUNCTIONALITY: Warden Registration
 router.post('/logout', wardenLogout);
-
-// Protected route for the warden dashboard
-// router.get('/dashboard', wardenDashboard);
 
 export default router;

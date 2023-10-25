@@ -1,5 +1,7 @@
 import { db } from "../db/db.js";
 
+// FUNCTION: Get all the complaints of a particular hostel
+// ACCESS TO: ALL
 export const getComplains = (req, res) => {
 
     const { hostel } = req.query
@@ -34,6 +36,8 @@ export const getComplains = (req, res) => {
     })
 }
 
+// FUNCTION: Get the required complaint
+// ACCESS TO: ALL
 export const getComplain = (req, res) => {
 
     const { hostel } = req.query
@@ -73,6 +77,8 @@ export const getComplain = (req, res) => {
     })
 }
 
+// FUNCTION: Get a particular student's complaints
+// ACCESS TO: STUDENT
 export const studentComplains = (req, res) => {
 
     const idString = req.params.studentId
@@ -108,6 +114,8 @@ export const studentComplains = (req, res) => {
     })
 }
 
+// FUNCTION: Get all the pending complaints assigned to the Caretaker
+// ACCESS TO: CARETAKER
 export const getPendingComplainsCaretaker = (req, res) => {
 
     const { hostelName } = req.query
@@ -146,6 +154,8 @@ export const getPendingComplainsCaretaker = (req, res) => {
     })
 }
 
+// FUNCTION: Get all resolved complaints assigned to a Caretaker
+// ACCESS TO: CARETAKER
 export const getResolvedComplainsCaretaker = (req, res) => {
 
     const { hostelName } = req.query
@@ -184,6 +194,8 @@ export const getResolvedComplainsCaretaker = (req, res) => {
     })
 }
 
+// FUNCTION: Get all the pending complaints escalated/assigned to the Warden
+// ACCESS TO: WARDEN
 export const getPendingComplainsWarden = (req, res) => {
 
     const { hostelName } = req.query
@@ -222,6 +234,8 @@ export const getPendingComplainsWarden = (req, res) => {
     })
 }
 
+// FUNCTION: Get all the resolved complaints assigned to the Warden
+// ACCESS TO: WARDEN
 export const getResolvedComplainsWarden = (req, res) => {
 
     const { hostelName } = req.query
@@ -260,6 +274,8 @@ export const getResolvedComplainsWarden = (req, res) => {
     })
 }
 
+// FUNCTION: Create a new complaint
+// ACCESS TO: STUDENT
 export const createComplain = (req, res) => {
 
     const { title, description, role, student_id, hostel_name } = req.body
@@ -294,6 +310,8 @@ export const createComplain = (req, res) => {
     })
 }
 
+// FUNCTION: Update the status of a complaint
+// ACCESS TO: CARETAKER/WARDEN
 export const updateComplainStatus = (req, res) => {
 
     const idString = req.params.complaintId
@@ -314,6 +332,8 @@ export const updateComplainStatus = (req, res) => {
     );
 }
 
+// FUNCTION: Update the title/description of a complaint
+// ACCESS TO: STUDENT
 export const updateComplain = (req, res) => {
 
     const idString = req.params.complaintId
@@ -344,6 +364,8 @@ export const updateComplain = (req, res) => {
     )
 }
 
+// FUNCTION: Forward a complaint to the warden after two days of no activity on it
+// ACCESS TO: STUDENT
 export const forwardToWarden = (req, res) => {
     
     const idString = req.params.complaintId
@@ -360,6 +382,8 @@ export const forwardToWarden = (req, res) => {
     })
 }
 
+// FUNCTION: Delete a particular complaint
+// ACCESS TO: STUDENT
 export const deleteComplain = (req, res) => {
 
     const idString = req.params.complaintId

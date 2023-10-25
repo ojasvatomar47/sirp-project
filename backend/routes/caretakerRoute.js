@@ -7,29 +7,31 @@ import {
 
 const router = express.Router();
 
-// Middleware for role-based authentication (checks if the user's role is 'Caretaker')
+// ROLE: Middleware
+// FUNCTIONALITY: Role-Based-Authentication
 router.use((req, res, next) => {
-    // Simulate checking the user's role from the JWT token or any other authentication mechanism
-    const userRole = 'Caretaker'; // In a real application, this would come from the JWT token
+    const userRole = 'Caretaker';
 
-    // Role-based logic
     if (userRole === 'Caretaker') {
-        next(); // If the user is a caretaker, grant access
+        next();
     } else {
-        res.status(403).json('Access denied'); // Deny access for non-caretaker roles
+        res.status(403).json('Access denied');
     }
 });
 
-// Public route for caretaker registration
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Caretaker Registration
 router.post('/register', caretakerRegister);
 
-// Public route for caretaker login
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Caretaker Registration
 router.post('/login', caretakerLogin);
 
-// Protected route for caretaker logout
+// METHOD: POST
+// ACCESS: Private
+// FUNCTIONALITY: Caretaker Registration
 router.post('/logout', caretakerLogout);
-
-// Protected route for the caretaker dashboard
-// router.get('/dashboard', caretakerDashboard);
 
 export default router;

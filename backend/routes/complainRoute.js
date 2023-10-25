@@ -16,40 +16,64 @@ import {
 
 const router = express.Router();
 
-// Get all complaints of a paricular hostel (checked)
+// METHOD: GET
+// ACCESS: Public
+// FUNCTIONALITY: Get all the complaints of a particular hostel
 router.get('/', getComplains);
 
-// Get a single complaint (checked)
+// METHOD: GET
+// ACCESS: Public
+// FUNCTIONALITY: Get the required complaint
 router.get('/singlecomplaint/:complaintId', getComplain);
 
-// Get all complaints of a particular student (checked)
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get all the complaints registered by a student
 router.get('/student/:studentId', studentComplains);
 
-// Get all the complaints filed to Caretaker which are pending
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get all the pending complaints with assigned_to = Caretaker
 router.get('/caretaker/pending', getPendingComplainsCaretaker);
 
-// Get all the complaints filed to Caretaker which are resolved
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get all the resolved complaints with assigned_to = Caretaker
 router.get('/caretaker/resolved', getResolvedComplainsCaretaker);
 
-// Get all the complaints filed to Warden which are pending
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get all the escalated complaints with assigned_to = Warden
 router.get('/warden/pending', getPendingComplainsWarden);
 
-// Get all the complaints filed to Warden which are resolved
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get all the resolved complaints with assigned_to = Warden
 router.get('/warden/resolved', getResolvedComplainsWarden);
 
-// Create a new complaint (checked)
+// METHOD: POST
+// ACCESS: Private
+// FUNCTIONALITY: Register a complaint
 router.post('/', createComplain);
 
-// Update a complaint by ID (checked)
+// METHOD: PUT
+// ACCESS: Private
+// FUNCTIONALITY: Update a complaint
 router.put('/:complaintId', updateComplain);
 
-// Update a complaint's status by ID (checked)
+// METHOD: PUT
+// ACCESS: Private
+// FUNCTIONALITY: Update the status of a complaint
 router.put('/status/:complaintId', updateComplainStatus);
 
-// Update a complaint's assigned_to attribute (checked)
+// METHOD: PUT
+// ACCESS: Private
+// FUNCTIONALITY: Change the assigned_to from Caretaker to Warden
 router.put('/forwardToWarden/:complaintId', forwardToWarden);
 
-// Delete a complaint by ID (checked)
+// METHOD: DELETE
+// ACCESS: Private
+// FUNCTIONALITY: Delete a complaint
 router.delete('/:complaintId', deleteComplain);
 
 export default router;

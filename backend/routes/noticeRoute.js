@@ -9,19 +9,29 @@ import {
 
 const router = express.Router()
 
-// Get a single notice
+// METHOD: GET
+// ACCESS: Public
+// FUNCTIONALITY: Get all the notices of a particular hostel
 router.get('/:noticeId', getNotice)
 
-// GET all the notices
+// METHOD: GET
+// ACCESS: Public
+// FUNCTIONALITY: Get the required notice
 router.get('/', getNotices)
 
-// POST a notice
+// METHOD: POST
+// ACCESS: Private
+// FUNCTIONALITY: Post a notice
 router.post('/', postNotice)
 
-// UPDATE a notice
+// METHOD: PUT
+// ACCESS: Private
+// FUNCTIONALITY: Update a notice
 router.put('/:noticeId', updateNotice)
 
-// DELETE a notice
+// METHOD: DELETE
+// ACCESS: Private
+// FUNCTIONALITY: Delete a notice
 router.delete('/:noticeId', deleteNotice)
 
 export default router;

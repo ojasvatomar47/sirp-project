@@ -7,29 +7,32 @@ import {
 
 const router = express.Router();
 
-// Middleware for role-based authentication (checks if the user's role is 'Student')
+// ROLE: Middleware
+// FUNCTIONALITY: Role-Based-Authentication
 router.use((req, res, next) => {
-    // Simulate checking the user's role from the JWT token or any other authentication mechanism
-    const userRole = 'Student'; // In a real application, this would come from the JWT token
+    const userRole = 'Student';
 
-    // Role-based logic
     if (userRole === 'Student') {
-        next(); // If the user is a student, grant access
+        next();
     } else {
-        res.status(403).json('Access denied'); // Deny access for non-student roles
+        res.status(403).json('Access denied');
     }
 });
 
-// Public route for student registration
+
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Student Registration
 router.post('/register', studentRegister);
 
-// Public route for student login
+// METHOD: POST
+// ACCESS: Public
+// FUNCTIONALITY: Student Log-In
 router.post('/login', studentLogin);
 
-// Protected route for student logout
+// METHOD: POST
+// ACCESS: Private
+// FUNCTIONALITY: Student Logout
 router.post('/logout', studentLogout);
-
-// Protected route for the student dashboard
-// router.get('/dashboard', studentDashboard);
 
 export default router;

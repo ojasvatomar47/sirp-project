@@ -5,9 +5,10 @@ import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
-// Caretaker registration
+// FUNCTION: Caretaker Registration
 export const caretakerRegister = (req, res) => {
-    // Check if the user already exists
+
+    // CHECK WHETHER THE CARETAKER ALREADY EXISTS IN THE TABLE
     var checkUserQuery = "SELECT * FROM caretakers WHERE email = ?";
 
     db.query(checkUserQuery, [req.body.email], (err, existingCaretakerData) => {
@@ -19,7 +20,7 @@ export const caretakerRegister = (req, res) => {
             return res.status(409).json("Caretaker already exists!");
         }
 
-        // Verify if the caretaker's details match those in the hostels table
+        // VERIFYING IF THE ENTERED CARETAKER AND THE HOSTEL'S WARDEN MATCHES OR NOT
         const hostelName = req.body.hostel;
         const caretakerName = req.body.name;
         const caretakerEmail = req.body.email;
@@ -41,13 +42,13 @@ export const caretakerRegister = (req, res) => {
                 return res.status(403).json("Caretaker's details do not match the hostel information.");
             }
 
-            // Generate a salt and hash the caretaker's password for security
+            // GENERATE A HASHED PASSWORD FOR THE ENTERED PASSWORD
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
             const date = new Date()
 
-            // Insert the new caretaker with role 'caretaker' into the database
+            // INSERTING A NEW CARETAKER IN THE TABLE
             const insertQuery = "INSERT INTO caretakers (`email`, `password`, `name`, `hostel_name`, `role`, `registration_date`) VALUES (?)";
             const values = [req.body.email, hashedPassword, req.body.name, hostelName, 'caretaker', date];
 
@@ -63,9 +64,12 @@ export const caretakerRegister = (req, res) => {
 };
 
 
-// Caretaker login
+// FUNCTION: Caretaker LogIn
 export const caretakerLogin = (req, res) => {
+
+    // CHECKING IF THE CARETAKER EXISTS OR NOT
     var q = "SELECT * FROM caretakers WHERE email = ?";
+
     db.query(q, [req.body.email], (err, data) => {
         if (err) {
             return res.status(500).json(err);
@@ -74,6 +78,7 @@ export const caretakerLogin = (req, res) => {
             return res.status(404).json("User not found!");
         }
 
+        // CHECKING IF THE ENTERED PASSWORD MATCHED THE CARETAKER'S PASSWORD OR NOT
         const checkPassword = bcrypt.compareSync(req.body.password, data[0].password);
 
         if (!checkPassword) {
@@ -83,13 +88,14 @@ export const caretakerLogin = (req, res) => {
         const token = jwt.sign({ id: data[0].id, role: data[0].role }, "secretkey");
         const { password, ...other } = data[0];
 
+        // ASSIGNING A TOKEN TO THE CARETAKER
         res.cookie("accessToken", token, {
             httpOnly: true,
         }).status(200).json(other);
     });
 };
 
-// Caretaker logout
+// FUNCTION: Caretaker LogOut
 export const caretakerLogout = (req, res) => {
     res.clearCookie("accessToken", {
         secure: true,

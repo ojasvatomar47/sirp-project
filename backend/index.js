@@ -11,14 +11,12 @@ import noticeRoute from './routes/noticeRoute.js';
 const app = express();
 const PORT = process.env.PORT || 8800;
 
-// Middleware
-
+// MIDDLEWARES
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", true);
     next();
 });
 
-// Configure CORS settings as needed
 app.use(
     cors({
         origin: "http://localhost:5173",
@@ -27,14 +25,14 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+// ROUTES
 app.use('/api/students', studentRoute);
 app.use('/api/caretakers', caretakerRoute);
 app.use('/api/wardens', wardenRoute);
 app.use('/api/complain', complainRoute);
 app.use('/api/notice', noticeRoute)
 
-// Database connection
+// DATABASE CONNECTION
 db.connect((error) => {
     if (error) {
         console.log("Some error occurred!")
@@ -44,7 +42,7 @@ db.connect((error) => {
     }
 })
 
-// Server
+// SERVER CONNECTION
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
