@@ -5,18 +5,54 @@ import axios from 'axios'
 
 const WardenComplain = () => {
 
+    const { currentUser } = useContext(AuthContext)
+
     const [pendingComplaints, setPendingComplaints] = useState([])
 
     const [resolvedComplaints, setResolvedComplaints] = useState([])
 
-    const { currentUser } = useContext(AuthContext)
+    const [title, setTitle] = useState('');
+
+    const [content, setContent] = useState('');
 
     const navigate = useNavigate()
 
     const { hostel_name } = currentUser
 
     const [showInProgress, setShowInProgress] = useState(false);
+
     const [showCompleted, setShowCompleted] = useState(false);
+
+    const postNotice = async (event) => {
+
+        event.preventDefault()
+
+        const user_role = 'Warden'
+        const user_id = currentUser.warden_id
+        const hostel = hostel_name
+
+        const newNotice = {
+            title, 
+            content,
+            user_id,
+            user_role,
+            hostel
+        }
+
+        console.log(newNotice)
+
+        try {
+            const res = await axios.post(`http://localhost:8800/api/notice`, newNotice)
+            console.log("Notice created successfully")
+            alert(`New notice posted from ${currentUser.name}`)
+            window.location.reload()
+        } catch (error) {
+            console.log('Error while posting notice: ', error)
+        }
+
+        setTitle('')
+        setContent('')
+    }
 
     useEffect(() => {
 
@@ -152,14 +188,14 @@ const WardenComplain = () => {
             {/* Notice Form */}
             < div className="w-full lg:w-1/3 p-4 mt-10 lg:mt-0" > {/* Added `mt-10` for margin-top */}
                 < h2 className="text-2xl mb-4" > Notice</h2 >
-                <form className="bg-white p-4 rounded-lg shadow-lg">
+                <form onSubmit={postNotice} className="bg-white p-4 rounded-lg shadow-lg">
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-sm font-bold mb-2">Title:</label>
-                        <input type="text" id="title" name="title" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter title" />
+                        <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} className="capitalize shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter title" />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="description" className="block text-sm font-bold mb-2">Description:</label>
-                        <textarea id="description" name="description" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description"></textarea>
+                        <textarea id="description" name="description" onChange={(e) => setContent(e.target.value)} className="capitalize shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description"></textarea>
                     </div>
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         Add Notice
