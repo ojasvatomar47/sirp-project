@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { AuthContext } from '../context/authContext';
+import { AuthContext } from '../../context/authContext';
 
-const CaretakerLogin = () => {
+const WardenLogin = () => {
 
   const [formData, setFormData] = useState({
     email: '',
@@ -23,7 +23,7 @@ const CaretakerLogin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await login(formData, 'caretaker');
+      await login(formData, 'warden');
       console.log("done")
       navigate('/')
     } catch (err) {
@@ -57,7 +57,7 @@ const CaretakerLogin = () => {
             "text-3xl py-4 md:text-4xl font-bold": true,
           })}>
             <center>Log in</center>
-            <p>Caretaker</p>
+            <p>Warden</p>
           </span>
 
           <span className={classNames({
@@ -111,7 +111,7 @@ const CaretakerLogin = () => {
           })}>
             Don't have an account?
             <span className={classNames('font-bold', 'text-black')} href="/caretakerregister">
-              <Link to='/caretakerregister'>Sign up</Link>
+              <Link to='/wardenregister'>Sign up</Link>
             </span>
           </div>
 
@@ -137,4 +137,4 @@ const CaretakerLogin = () => {
   );
 }
 
-export default CaretakerLogin;
+export default WardenLogin;

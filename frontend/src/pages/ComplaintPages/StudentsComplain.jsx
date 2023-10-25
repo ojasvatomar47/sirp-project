@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../context/authContext'
+import { AuthContext } from '../../context/authContext'
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../../components/Sidebar';
 
 const StudentComplain = () => {
 

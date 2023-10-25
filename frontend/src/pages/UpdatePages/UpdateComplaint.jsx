@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
+import { AuthContext } from '../../context/authContext'
 import axios from 'axios'
 
 const UpdateComplaint = () => {
@@ -15,7 +15,10 @@ const UpdateComplaint = () => {
 
     const navigate = useNavigate()
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (event) => {
+
+        event.preventDefault()
+
         try {
             const res = await axios.put(`http://localhost:8800/api/complain/${complain_id}`, {
                 title: updatedTitle,
@@ -24,6 +27,8 @@ const UpdateComplaint = () => {
                 status: currentUser.status
             })
             console.log(res.data)
+            const date = new Date()
+            alert(`Complaint updated at ${formatSubmissionDateTime(date)}`)
             navigate(`/complaint/${complain_id}`)
         } catch (error) {
             console.log(error)
@@ -67,7 +72,7 @@ const UpdateComplaint = () => {
                         <button className="bg-blue-600 text-white px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg shadow-lg hover:shadow-xl active:bg-blue-700 focus:outline-none focus:shadow-outline transition-all"
                             type="submit"
                         >
-                            Submit
+                            Update
                         </button>
                     </div>
                 </form>

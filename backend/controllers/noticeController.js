@@ -62,9 +62,11 @@ export const updateNotice = (req, res) => {
     const idString = req.params.noticeId
     const noticeId = parseInt(idString.replace(':', ''), 10)
 
+    const date = new Date()
+
     const q = "UPDATE notices SET title = ?, content = ?, date = ? WHERE notice_id = ?"
 
-    db.query(q, [title, content, noticeId], (err, data) => {
+    db.query(q, [title, content, date, noticeId], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } else {

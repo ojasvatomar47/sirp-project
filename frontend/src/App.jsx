@@ -4,23 +4,24 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
-import StudentLogin from './pages/StudentLogin';
-import StudentRegister from './pages/StudentRegister';
-import CaretakerLogin from './pages/CaretakerLogin';
-import CaretakerRegister from './pages/CaretakerRegister';
-import WardenRegister from './pages/WardenRegister';
-import WardenLogin from './pages/WardenLogin';
+import StudentLogin from './pages/LogInPages/StudentLogin';
+import StudentRegister from './pages/RegisterPages/StudentRegister';
+import CaretakerLogin from './pages/LogInPages/CaretakerLogin';
+import CaretakerRegister from './pages/RegisterPages/CaretakerRegister';
+import WardenRegister from './pages/RegisterPages/WardenRegister';
+import WardenLogin from './pages/LogInPages/WardenLogin';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Profile from './pages/Profile';
-import StudentsComplain from './pages/StudentsComplain';
-import CaretakerComplain from './pages/CaretakerComplain';
-import WardenComplain from './pages/WardenComplain';
-import Complaint from './pages/Complaint';
+import StudentsComplain from './pages/ComplaintPages/StudentsComplain';
+import CaretakerComplain from './pages/ComplaintPages/CaretakerComplain';
+import WardenComplain from './pages/ComplaintPages/WardenComplain';
+import Complaint from './pages/SinglePages/Complaint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import UpdateComplaint from './pages/UpdateComplaint';
-import Notice from './pages/Notice';
+import UpdateComplaint from './pages/UpdatePages/UpdateComplaint';
+import UpdateNotice from './pages/UpdatePages/UpdateNotice';
+import Notice from './pages/SinglePages/Notice';
 
 const Layout = () => {
 
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/notice/:notice_id",
         element: <Notice />,
+      },
+      {
+        path: "/updateNotice/:notice_id",
+        element: <UpdateNotice />,
       },
       {
         path: "/about",
