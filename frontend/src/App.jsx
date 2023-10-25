@@ -14,7 +14,8 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Profile from './pages/Profile';
 import StudentsComplain from './pages/StudentsComplain';
-import AuthorityComplain from './pages/AuthorityComplain';
+import CaretakerComplain from './pages/CaretakerComplain';
+import WardenComplain from './pages/WardenComplain';
 import Complaint from './pages/Complaint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -49,8 +50,12 @@ const router = createBrowserRouter([
         element: <StudentsComplain />,
       },
       {
-        path: "/authoritycomplain",
-        element: <AuthorityComplain />,
+        path: "/caretakercomplain",
+        element: <CaretakerComplain />,
+      },
+      {
+        path: "/wardencomplain",
+        element: <WardenComplain />,
       },
       {
         path: "/complaint/:complaint_id",

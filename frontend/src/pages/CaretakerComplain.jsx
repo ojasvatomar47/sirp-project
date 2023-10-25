@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
-const AuthorityComplain = () => {
+const CaretakerComplain = () => {
 
     const [pendingComplaints, setPendingComplaints] = useState([])
 
@@ -22,7 +22,7 @@ const AuthorityComplain = () => {
 
         const fetchPendingComplaints = async () => {
             try {
-                const res = await axios.get(`http://localhost:8800/api/complain/pending`, { params: { hostelName: hostel_name } })
+                const res = await axios.get(`http://localhost:8800/api/complain/caretaker/pending`, { params: { hostelName: hostel_name } })
                 setPendingComplaints(res.data)
             } catch (error) {
                 console.log(error)
@@ -36,7 +36,7 @@ const AuthorityComplain = () => {
 
         const fetchResolvedComplaints = async () => {
             try {
-                const res = await axios.get(`http://localhost:8800/api/complain/resolved`, { params: { hostelName: hostel_name } })
+                const res = await axios.get(`http://localhost:8800/api/complain/caretaker/resolved`, { params: { hostelName: hostel_name } })
                 setResolvedComplaints(res.data)
             } catch (error) {
                 console.log(error)
@@ -108,13 +108,13 @@ const AuthorityComplain = () => {
     const getBadgeClass = (progress) => {
         if (progress === 'Solved') return 'bg-red-500';
         if (progress === 'Pending') return 'bg-yellow-500';
-        return 'bg-green-500';
+        return 'bg-pink-300';
     }
 
     const getProgressText = (progress) => {
         if (progress === 'Solved') return 'Resolved';
         if (progress === 'Pending') return 'In Progress';
-        return 'Done';
+        return 'Escalated';
     }
 
     return (
@@ -122,13 +122,13 @@ const AuthorityComplain = () => {
             {/* Work in Progress */}
             <div className="w-full lg:w-1/3 p-4">
                 <button onClick={() => setShowInProgress(!showInProgress)} className="lg:hidden mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-between">
-                    Work in Progress
+                    Complaints In Progress
                     <span>{showInProgress ? '▲' : '▼'}</span>
                 </button>
 
                 {(showInProgress || window.innerWidth >= 1024) && (
                     <>
-                        <h2 className="hidden lg:block text-2xl mb-4">Work in Progress</h2>
+                        <h2 className="hidden lg:block text-2xl mb-4">Complaints In Progress</h2>
                         <ComplaintsList complaints={pendingComplaints} />
                     </>
                 )}
@@ -137,13 +137,13 @@ const AuthorityComplain = () => {
             {/* Completed */}
             <div className="w-full lg:w-1/3 p-4">
                 <button onClick={() => setShowCompleted(!showCompleted)} className="lg:hidden mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-between">
-                    Completed
+                    Resolved Complaints
                     <span>{showCompleted ? '▲' : '▼'}</span>
                 </button>
 
                 {(showCompleted || window.innerWidth >= 1024) && (
                     <>
-                        <h2 className="hidden lg:block text-2xl mb-4">Completed</h2>
+                        <h2 className="hidden lg:block text-2xl mb-4">Resolved Complaints</h2>
                         <ComplaintsList complaints={resolvedComplaints} />
                     </>
                 )}
@@ -171,4 +171,4 @@ const AuthorityComplain = () => {
     );
 }
 
-export default AuthorityComplain;
+export default CaretakerComplain;

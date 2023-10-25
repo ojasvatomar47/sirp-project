@@ -108,7 +108,7 @@ export const studentComplains = (req, res) => {
     })
 }
 
-export const getPendingComplains = (req, res) => {
+export const getPendingComplainsCaretaker = (req, res) => {
 
     const { hostelName } = req.query
 
@@ -130,13 +130,15 @@ export const getPendingComplains = (req, res) => {
             complaints.hostel_name = ?
         AND
             complaints.status = ?
+        AND
+            complaints.assigned_to = ?
     `
 
-    db.query(q, [hostelName, 'Pending'], (err, data) => {
+    db.query(q, [hostelName, 'Pending', 'Caretaker'], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } if (data.length === 0) {
-            return res.status(404).json('No pending complaints found')
+            return res.status(404).json('No pending complaints for caretaker found')
         }
         else {
             return res.status(200).json(data)
@@ -144,7 +146,7 @@ export const getPendingComplains = (req, res) => {
     })
 }
 
-export const getResolvedComplains = (req, res) => {
+export const getResolvedComplainsCaretaker = (req, res) => {
 
     const { hostelName } = req.query
 
@@ -166,13 +168,91 @@ export const getResolvedComplains = (req, res) => {
             complaints.hostel_name = ?
         AND
             complaints.status = ?
+        AND
+            complaints.assigned_to = ?
     `
 
-    db.query(q, [hostelName, 'Solved'], (err, data) => {
+    db.query(q, [hostelName, 'Solved', 'Caretaker'], (err, data) => {
         if (err) {
             return res.status(500).json(err)
         } if (data.length === 0) {
-            return res.status(404).json('No resolved complaints found')
+            return res.status(404).json('No resolved complaints for caretaker found')
+        }
+        else {
+            return res.status(200).json(data)
+        }
+    })
+}
+
+export const getPendingComplainsWarden = (req, res) => {
+
+    const { hostelName } = req.query
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username,
+            complaints.student_id,
+            complaints.assigned_to
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.hostel_name = ?
+        AND
+            complaints.status = ?
+        AND
+            complaints.assigned_to = ?
+    `
+
+    db.query(q, [hostelName, 'Escalated', 'Warden'], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } if (data.length === 0) {
+            return res.status(404).json('No pending complaints for warden found')
+        }
+        else {
+            return res.status(200).json(data)
+        }
+    })
+}
+
+export const getResolvedComplainsWarden = (req, res) => {
+
+    const { hostelName } = req.query
+
+    const q = `
+        SELECT 
+            complaints.complaint_id,
+            complaints.title,
+            complaints.description,
+            complaints.status,
+            complaints.submission_date,
+            complaints.hostel_name,
+            students.username AS student_username,
+            complaints.student_id,
+            complaints.assigned_to
+        FROM
+            complaints
+        INNER JOIN students ON complaints.student_id = students.student_id
+        WHERE
+            complaints.hostel_name = ?
+        AND
+            complaints.status = ?
+        AND
+            complaints.assigned_to = ?
+    `
+
+    db.query(q, [hostelName, 'Solved', 'Warden'], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } if (data.length === 0) {
+            return res.status(404).json('No resolved complaints for warden found')
         }
         else {
             return res.status(200).json(data)
@@ -269,9 +349,9 @@ export const forwardToWarden = (req, res) => {
     const idString = req.params.complaintId
     const complainId = parseInt(idString.replace(':', ''), 10)
 
-    const q = "UPDATE complaints SET assigned_to = ? WHERE complaint_id = ?"
+    const q = "UPDATE complaints SET assigned_to = ?, status = ? WHERE complaint_id = ?"
 
-    db.query(q, ['Warden', complainId], (err, date) => {
+    db.query(q, ['Warden', 'Escalated', complainId], (err, date) => {
         if(err) {
             return res.status(500).json(err)
         } else {

@@ -18,13 +18,13 @@ const Sidebar = ({ isSidebarVisible }) => {
     const getBadgeClass = (progress) => {
         if (progress === 'Solved') return 'bg-red-500';
         if (progress === 'Pending') return 'bg-yellow-500';
-        return 'bg-green-500';
+        return 'bg-pink-300';
     }
 
     const getProgressText = (progress) => {
         if (progress === 'Solved') return 'Resolved';
         if (progress === 'Pending') return 'In Progress';
-        return 'Done';
+        return 'Escalated';
     }
 
     const formatSubmissionDateTime = (dateTimeString) => {
@@ -75,6 +75,7 @@ const Sidebar = ({ isSidebarVisible }) => {
         try {
             const res = await axios.put(`http://localhost:8800/api/complain/forwardToWarden/${complaintId}`)
             alert("Complaint forwarded to warden successfully");
+            window.location.reload()
             console.log(res.data)
         } catch (error) {
             console.log(error)
@@ -102,7 +103,7 @@ const Sidebar = ({ isSidebarVisible }) => {
                     <Link to={`/complaint/:${complaint.complaint_id}`}>
                         <div className="flex items-center justify-between">
                             <h2 className="text-xl font-semibold">{complaint.title}</h2>
-                            <span className={`inline-block px-4 py-1 rounded-full text-sm text-white ${getBadgeClass(complaint.progress)}`}>
+                            <span className={`inline-block px-4 py-1 rounded-full text-sm text-white ${getBadgeClass(complaint.status)}`}>
                                 {getProgressText(complaint.status)}
                             </span>
                         </div>
@@ -114,28 +115,33 @@ const Sidebar = ({ isSidebarVisible }) => {
                             <p className='text-xs mt-1'>{formatSubmissionDateTime(complaint.submission_date)}</p>
                         </div>
                     </Link>
-                    <div className={`flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2`}>
-                        {
-                            (
-                                complaint.assigned_to === 'Caretaker'
+                    
+                    {
+                        complaint.status === 'Pending'
+                        &&
+                        <div className={`flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2`}>
+                            {
+                                (
+                                    complaint.assigned_to === 'Caretaker'
+                                    &&
+                                    submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date)
+                                )
                                 &&
-                                submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date)
-                            )
-                            &&
-                            <button onClick={() => fwdToWarden(complaint.complaint_id)} className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
-                                Forward to Warden
-                            </button>
-                        }
+                                <button onClick={() => fwdToWarden(complaint.complaint_id)} className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
+                                    Forward to Warden
+                                </button>
+                            }
 
-                        <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
-                            <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
-                                Update
+                            <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
+                                <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
+                                    Update
+                                </button>
+                            </Link>
+                            <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
+                                Delete
                             </button>
-                        </Link>
-                        <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
-                            Delete
-                        </button>
-                    </div>
+                        </div>
+                    }
                 </div>
             ))}
         </div>

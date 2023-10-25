@@ -81,7 +81,7 @@ const Complaint = () => {
             >
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">{complaint.title}</h2>
-                    <span className={`inline-block px-4 py-1 rounded-full cursor-pointer text-sm text-white ${getBadgeClass(complaint.progress)}`}>
+                    <span className={`inline-block px-4 py-1 rounded-full cursor-pointer text-sm text-white ${getBadgeClass(complaint.status)}`}>
                         {getProgressText(complaint.status)}
                     </span>
                 </div>
@@ -98,6 +98,8 @@ const Complaint = () => {
                             complaint.assigned_to === 'Caretaker'
                             &&
                             submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date)
+                            &&
+                            complaint.status === 'Pending'
                         )
                         &&
                         <button onClick={() => fwdToWarden(complaint.complaint_id)} className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
@@ -105,14 +107,22 @@ const Complaint = () => {
                         </button>
                     }
 
-                    <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
-                        <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
-                            Update
-                        </button>
-                    </Link>
-                    <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
-                        Delete
-                    </button>
+                    {
+                        currentUser.role === 'student'
+                        &&
+                        (
+                            <div>
+                                <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
+                                    <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
+                                        Update
+                                    </button>
+                                </Link>
+                                <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
+                                    Delete
+                                </button>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div>

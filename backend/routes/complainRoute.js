@@ -3,8 +3,10 @@ import {
     getComplains,
     getComplain,
     studentComplains,
-    getPendingComplains,
-    getResolvedComplains,
+    getPendingComplainsCaretaker,
+    getResolvedComplainsCaretaker,
+    getPendingComplainsWarden,
+    getResolvedComplainsWarden,
     createComplain,
     updateComplain,
     updateComplainStatus,
@@ -23,11 +25,17 @@ router.get('/singlecomplaint/:complaintId', getComplain);
 // Get all complaints of a particular student (checked)
 router.get('/student/:studentId', studentComplains);
 
-// Get all the complaints which are pending (checked)
-router.get('/pending', getPendingComplains);
+// Get all the complaints filed to Caretaker which are pending
+router.get('/caretaker/pending', getPendingComplainsCaretaker);
 
-// Get all the complaints which are resolved (checked)
-router.get('/resolved', getResolvedComplains);
+// Get all the complaints filed to Caretaker which are resolved
+router.get('/caretaker/resolved', getResolvedComplainsCaretaker);
+
+// Get all the complaints filed to Warden which are pending
+router.get('/warden/pending', getPendingComplainsWarden);
+
+// Get all the complaints filed to Warden which are resolved
+router.get('/warden/resolved', getResolvedComplainsWarden);
 
 // Create a new complaint (checked)
 router.post('/', createComplain);
