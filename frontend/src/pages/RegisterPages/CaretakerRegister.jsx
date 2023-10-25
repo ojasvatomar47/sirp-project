@@ -9,7 +9,7 @@ const CaretakerRegister = () => {
     password: '',
     name: '',
     email: '',
-    hostel: 'Vivekananda', // default
+    hostel: 'Vivekananda', // DEFAULT
   });
 
   const [err, setErr] = useState(null)

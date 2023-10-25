@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
     const login = async (formData, role) => {
         let endpoint;
 
-        // Determine the API endpoint based on the role
+        // ENDPOINTS DETERMINATION
         if (role === "student") {
             endpoint = "http://localhost:8800/api/students/login";
         } else if (role === "caretaker") {
@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     const logout = async (role) => {
         let endpoint;
 
-        // Determine the API endpoint based on the role
+        // ENDPOINTS DETERMINATION
         if (role === "student") {
             endpoint = "http://localhost:8800/api/students/logout";
         } else if (role === "caretaker") {

@@ -36,7 +36,6 @@ const Sidebar = ({ isSidebarVisible }) => {
 
     const submissionDate = (date) => {
         const subDate = new Date(date)
-        // console.log("Submission date: "+subDate)
         return subDate
     }
 
@@ -44,7 +43,6 @@ const Sidebar = ({ isSidebarVisible }) => {
         const subDate = new Date(date)
         const tda = new Date(subDate)
         tda.setDate(subDate.getDate() - 2)
-        // console.log("Two days ago: "+tda)
         return tda
     }
 

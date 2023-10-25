@@ -60,7 +60,6 @@ const Complaint = () => {
 
     const submissionDate = (date) => {
         const subDate = new Date(date)
-        // console.log("Submission date: "+subDate)
         return subDate
     }
 
@@ -68,7 +67,6 @@ const Complaint = () => {
         const subDate = new Date(date)
         const tda = new Date(subDate)
         tda.setDate(subDate.getDate() - 2)
-        // console.log("Two days ago: "+tda)
         return tda
     }
 
