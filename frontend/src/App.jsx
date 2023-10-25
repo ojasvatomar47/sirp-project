@@ -22,6 +22,9 @@ import Footer from './components/Footer';
 import UpdateComplaint from './pages/UpdatePages/UpdateComplaint';
 import UpdateNotice from './pages/UpdatePages/UpdateNotice';
 import Notice from './pages/SinglePages/Notice';
+import StudentProfile from './pages/ProfilePages/StudentProfile';
+import CaretakerProfile from './pages/ProfilePages/CaretakerProfile';
+import WardenProfile from './pages/ProfilePages/WardenProfile';
 
 const Layout = () => {
 
@@ -46,6 +49,18 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/profile/student/:student_id",
+        element: <StudentProfile />,
+      },
+      {
+        path: "/profile/caretaker/:caretaker_id",
+        element: <CaretakerProfile />,
+      },
+      {
+        path: "/profile/warden/:warden_id",
+        element: <WardenProfile />,
       },
       {
         path: "/studentscomplain",

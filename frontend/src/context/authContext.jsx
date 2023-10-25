@@ -41,6 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
         const res = await axios.post(endpoint);
         setCurrentUser(null);
+        window.location.reload()
     };
 
     useEffect(() => {

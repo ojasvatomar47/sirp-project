@@ -75,6 +75,28 @@ const Home = () => {
   return (
     <div>
       <button onClick={handleLogout}>logout</button>
+      {currentUser && (
+        <>
+          {currentUser.role === 'student' && (
+            <Link to={`/profile/student/:${currentUser.student_id}`}>
+              <button>Student Profile</button>
+            </Link>
+          )}
+
+          {currentUser.role === 'caretaker' && (
+            <Link to={`/profile/caretaker/:${currentUser.caretaker_id}`}>
+              <button>Caretaker Profile</button>
+            </Link>
+          )}
+
+          {currentUser.role === 'warden' && (
+            <Link to={`/profile/warden/:${currentUser.warden_id}`}>
+              <button>Warden Profile</button>
+            </Link>
+          )}
+        </>
+      )}
+
       <h1>Complaints</h1>
       <ul className='flex flex-col gap-10 justify-center items-center'>
         {complaints.map((complaint) => (

@@ -12,6 +12,8 @@ import {
     updateComplainStatus,
     forwardToWarden,
     deleteComplain,
+    getComplainsStatusCountStudent,
+    countHostelStatusComplaints
 } from '../controllers/complainController.js';
 
 const router = express.Router();
@@ -50,6 +52,16 @@ router.get('/warden/pending', getPendingComplainsWarden);
 // ACCESS: Private
 // FUNCTIONALITY: Get all the resolved complaints with assigned_to = Warden
 router.get('/warden/resolved', getResolvedComplainsWarden);
+
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get total number of complaints registered by a particular student wrt status
+router.get('/studentStatusComplains/:studentId', getComplainsStatusCountStudent)
+
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get total number of complaints registered for a hostel
+router.get('/countHostelComplaints', countHostelStatusComplaints)
 
 // METHOD: POST
 // ACCESS: Private

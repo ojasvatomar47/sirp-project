@@ -274,6 +274,42 @@ export const getResolvedComplainsWarden = (req, res) => {
     })
 }
 
+// FUNCTION: Get the number of complaints registered by a particular student wrt the status
+// ACCESS TO: STUDENT
+export const getComplainsStatusCountStudent = (req, res) => {
+
+    const idString = req.params.studentId
+    const studentId = parseInt(idString.replace(':', ''), 10)
+
+    const { status } = req.query;
+
+    const q = `SELECT COUNT(*) AS statusComplainsCount FROM complaints WHERE student_id = ? AND status = ?`
+
+    db.query(q, [studentId, status], (err, data) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        res.status(200).json(data[0].statusComplainsCount);
+    });
+}
+
+// FUNCTION: Get the total number of complaints registered for a particular hostel
+// ACCESS TO: CARETAKER/WARDEN
+export const countHostelStatusComplaints = (req, res) => {
+
+    const { hostel, status } = req.query;
+
+    const q = `SELECT COUNT(*) AS hostelStatusComplainsCount FROM complaints WHERE hostel_name = ? AND status = ?`
+
+    db.query(q, [hostel, status], (err, data) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        res.status(200).json(data[0].hostelStatusComplainsCount);
+    });
+
+}
+
 // FUNCTION: Create a new complaint
 // ACCESS TO: STUDENT
 export const createComplain = (req, res) => {
@@ -367,14 +403,14 @@ export const updateComplain = (req, res) => {
 // FUNCTION: Forward a complaint to the warden after two days of no activity on it
 // ACCESS TO: STUDENT
 export const forwardToWarden = (req, res) => {
-    
+
     const idString = req.params.complaintId
     const complainId = parseInt(idString.replace(':', ''), 10)
 
     const q = "UPDATE complaints SET assigned_to = ?, status = ? WHERE complaint_id = ?"
 
     db.query(q, ['Warden', 'Escalated', complainId], (err, date) => {
-        if(err) {
+        if (err) {
             return res.status(500).json(err)
         } else {
             return res.status(200).json('Complaint forwarded to warden')
