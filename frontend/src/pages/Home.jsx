@@ -1,8 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/authContext';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+// import React from 'react'
 
+// const Home = () => {
+//   return (
+//     <div>Home</div>
+//   )
+// }
+
+// export default Home
+
+import React from 'react' ;
+import Hero from '../components/Hero' ;
+import Services from '../components/Services' ;
+import Container from '../components/Container' ;
+import Instruct from '../components/Instruct';
+import Notice from '../components/Notice'
 const Home = () => {
 
   const { currentUser, logout } = useContext(AuthContext)
@@ -74,63 +85,13 @@ const Home = () => {
 
   return (
     <div>
-      <button onClick={handleLogout}>logout</button>
-      {currentUser && (
-        <>
-          {currentUser.role === 'student' && (
-            <Link to={`/profile/student/:${currentUser.student_id}`}>
-              <button>Student Profile</button>
-            </Link>
-          )}
-
-          {currentUser.role === 'caretaker' && (
-            <Link to={`/profile/caretaker/:${currentUser.caretaker_id}`}>
-              <button>Caretaker Profile</button>
-            </Link>
-          )}
-
-          {currentUser.role === 'warden' && (
-            <Link to={`/profile/warden/:${currentUser.warden_id}`}>
-              <button>Warden Profile</button>
-            </Link>
-          )}
-        </>
-      )}
-
-      <h1>Complaints</h1>
-      <ul className='flex flex-col gap-10 justify-center items-center'>
-        {complaints.map((complaint) => (
-          <div key={complaint.complaint_id}>
-            <Link to={`/complaint/:${complaint.complaint_id}`}>
-              <li key={complaint.complaint_id} className='bg-pink-600'>
-                <h3>{complaint.title}</h3>
-                <p>{complaint.description}</p>
-                <p>Status: {complaint.status}</p>
-                <p>Submitted by: {complaint.student_username}</p>
-                <p>Submission time: {formatSubmissionDateTime(complaint.submission_date)}</p>
-              </li>
-            </Link>
-          </div>
-        ))}
-      </ul>
-
-      <h1>Notices</h1>
-      <ul className='flex flex-col gap-10 justify-center items-center'>
-        {notices.map((notice) => (
-          <div key={notice.notice_id}>
-            <Link to={`/notice/:${notice.notice_id}`}>
-              <li key={notice.notice_id} className='bg-pink-600'>
-                <h3>{notice.title}</h3>
-                <p>{notice.content}</p>
-                <p>Posted by: {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</p>
-                <p>Submission time: {formatSubmissionDateTime(notice.date)}</p>
-              </li>
-            </Link>
-          </div>
-        ))}
-      </ul>
+      <Hero /> 
+      <Instruct/>
+      <Services /> 
+      <Notice/>
+      <Container />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
