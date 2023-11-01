@@ -47,6 +47,13 @@ const StudentComplain = () => {
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative">
             <button

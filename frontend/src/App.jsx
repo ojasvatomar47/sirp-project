@@ -75,14 +75,6 @@ const router = createBrowserRouter([
         element: <WardenComplain />,
       },
       {
-        path: "/complaint/:complaint_id",
-        element: <Complaint />,
-      },
-      {
-        path: "/notice/:notice_id",
-        element: <Notice />,
-      },
-      {
         path: "/updateNotice/:notice_id",
         element: <UpdateNotice />,
       },
@@ -111,6 +103,14 @@ const router = createBrowserRouter([
   {
     path: "/studentregister",
     element: <StudentRegister />
+  },
+  {
+    path: "/complaint/:complaint_id",
+    element: <Complaint />,
+  },
+  {
+    path: "/notice/:notice_id",
+    element: <Notice />,
   },
   {
     path: "/studentlogin",

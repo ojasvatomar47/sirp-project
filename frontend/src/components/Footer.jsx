@@ -4,7 +4,7 @@ import git from '../assets/git.png';
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-5 bg-gray-300 text-primary-content">
+    <footer className="footer footer-center p-5 bg-white border-t-[#fdd1d1] border-[2px] bg-gradient-to-b from-white to-[#FF8E8E] text-primary-content">
       <aside style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
         <img src={logo} alt="Website Logo" className="h-12 w-12 rounded-full mr-2 mb-3 mt-1" />
         <p className="font-bold text-0.5xl lg: text-xl" style={{ textAlign: 'center' }}>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
+import img from '../../assets/image2.png';
 
 const StudentRegister = () => {
 
@@ -65,7 +66,7 @@ const StudentRegister = () => {
         <div className={classNames('relative')}>
 
           <img
-            src="image2.png"
+            src={img}
             alt="img"
             className={classNames({
               "w-[350px] h-full md:block object-cover": true,
@@ -85,7 +86,6 @@ const StudentRegister = () => {
             "text-3xl py-4 md:text-4xl font-bold": true,
           })}>
             <center>Sign up</center>
-            <p>Student</p>
           </span>
 
           <span className={classNames({
@@ -182,6 +182,16 @@ const StudentRegister = () => {
             Don't have an account?
             <span className={classNames('font-bold', 'text-black')} href="/studentlogin">
               <Link to='/studentlogin'>Log in</Link>
+            </span>
+          </div>
+
+          <div className={classNames({
+            " text-center text-gray-400":true,
+           } )}>
+            Register as: 
+            <span className={classNames('font-bold', 'text-black')}>
+              <Link to='/caretakerregister'> Caretaker</Link> ||
+              <Link to='/wardenregister'>  Warden</Link>
             </span>
           </div>
 

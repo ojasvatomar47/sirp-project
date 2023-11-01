@@ -1,175 +1,77 @@
-// import React, { useState } from 'react';
-// import logo_final from '../assets/logo_final.jpeg';
-// import avatar from '../assets/avatar.jpeg';
+import React, { useContext, useEffect, useState } from 'react'
+import '../App.css'
+import logoimg from '../assets/internet.png'
+import { Link, useLocation } from 'react-router-dom'
+import { AuthContext } from '../context/authContext'
 
-// function Navbar() {
-//   const [showMenu, setShowMenu] = useState(false);
+const Navbar = () => {
 
-//   const toggleMobileMenu = () => {
-//     setShowMenu(!showMenu);
-//   };
+  const { currentUser } = useContext(AuthContext)
 
-//   return (
-//     <nav className="bg-blue-500 p-1 flex items-center justify-between lg:p-5">
-//       {/* Hamburger Button for Mobile */}
-//       <div className="md:hidden">
-//         <button onClick={toggleMobileMenu} className="text-white">
-//           ☰
-//         </button>
-//       </div>
+  const [navBackground, setNavBackground] = useState(false);
+  const location = useLocation();
 
-//       {/* Left Section (Logo and Website Name) */}
-//       <div className="flex items-center mr-5">
-//         {/* Conditionally render the logo based on screen width */}
-//         <img
-//           src={logo_final}
-//           alt="Website Logo"
-//           className="h-12 w-12 rounded-full mr-2 md:inline-block hidden"
-//         />
-//         {/* <span className="text-white lg:text-3xl font-semibold sm:text-3xl">
-//           Campus Care
-//         </span> */}
-//         <span className="ml-12 text-white text-2xl lg:text-3xl font-semibold lg:ml-5">
-//           Campus Care
-//         </span>
+  useEffect(() => {
+    if (location.pathname === '/') {
+      const handleScroll = () => {
+        if (window.scrollY > 50) {
+          setNavBackground(true);
+        } else {
+          setNavBackground(false);
+        }
+      };
 
-//       </div>
+      window.addEventListener('scroll', handleScroll);
 
-//       {/* Middle Section (Navigation Links) - Responsive */}
-//       <div
-//         className={`md:flex space-x-2 md:px-20 flex-grow items-center ${showMenu ? 'block' : 'hidden'
-//           } md:space-x-6 md:block justify-around`}
-//       >
-//         <a
-//           href="#"
-//           className="text-white text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-//         >
-//           Home
-//         </a>
-//         <a
-//           href="#"
-//           className="text-white text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-//         >
-//           Complaint
-//         </a>
-//         <a
-//           href="#"
-//           className="text-white text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-//         >
-//           About
-//         </a>
-//         <a
-//           href="#"
-//           className="text-white text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-//         >
-//           Profile
-//         </a>
-//       </div>
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [location.pathname]);
 
-//       {/* Button Near Avatar Image - Responsive */}
-//       <div className={`md:flex items-center ${showMenu ? 'hidden' : 'block'}`}>
-//         <img src={avatar} alt="User Image" className="h-8 w-8 rounded-full ml-5 lg:h-12 lg:w-12" />
-//       </div>
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
-
-
-import React, { useState } from 'react';
-import logo_final from '../assets/logo_final.jpeg';
-import avatar from '../assets/avatar.jpeg';
-
-function Navbar() {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
-  const closeSidebar = () => {
-    setShowMenu(false);
-  };
+  const isHomePage = location.pathname === '/';
 
   return (
-    <div>
-      <nav className="bg-gray-300 p-1 flex items-center justify-between lg:p-5">
-        {/* Hamburger Button for Mobile */}
-        <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className="text-white">
-            ☰
-          </button>
-        </div>
+    <div className={`z-50 w-full transition duration-300 ${isHomePage && 'fixed'} ${navBackground ? 'bg-[#FF8E8E]' : isHomePage ? 'bg-transparent' : 'bg-[#FF8E8E]'}`}>
+      <nav className='flex justify-between items-center py-[1%] px-[6%]'>
+        <Link to='/'>
+          <div className='flex gap-3 justify-center items-center flex-2'>
+            <img src={logoimg} alt="" className='w-[60px] h-[40px]' />
+            <h1 className='text-white text-xl'>Campus Care</h1>
+          </div>
+        </Link>
+        {currentUser &&
+          (
+            <div className="nav-links flex-3 text-right " id="navLinks">
+              <ul className='flex gap-10'>
+                <li className='no-underline inline-block py-[8px] px-[12px] relative text-white text-xl'><Link to={'/'}>HOME</Link></li>
+                <li className='no-underline inline-block py-[8px] px-[12px] relative text-white text-xl'>
+                  {currentUser.role === 'student' && (
+                    <Link to={`/profile/student/:${currentUser.student_id}`}>
+                      <button>PROFILE</button>
+                    </Link>
+                  )}
 
-        {/* Left Section (Logo and Website Name) */}
-        <div className="flex items-center mr-5">
-          <img
-            src={logo_final}
-            alt="Website Logo"
-            className="h-12 w-12 rounded-full mr-2 md:inline-block hidden"
-          />
-          <span className="ml-12 text-black text-2xl lg:text-3xl font-semibold lg:ml-5">
-            Campus Care
-          </span>
-        </div>
+                  {currentUser.role === 'caretaker' && (
+                    <Link to={`/profile/caretaker/:${currentUser.caretaker_id}`}>
+                      <button>PROFILE</button>
+                    </Link>
+                  )}
 
-        {/* Middle Section (Navigation Links) - Responsive */}
-        <div
-          className={`md:flex space-x-2 md:px-20 flex-grow items-center ${showMenu ? 'block' : 'hidden'
-            } md:space-x-6 md:block justify-around`}
-        >
-          <a
-            href="#"
-            className="text-black text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-black text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-          >
-            Complaint
-          </a>
-          <a
-            href="#"
-            className="text-black text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-          >
-            About
-          </a>
-          <a
-            href="#"
-            className="text-black text-xl md:text-xl text-base transition duration-300 ease-in-out hover:text-yellow-400 transform hover:scale-110"
-          >
-            Profile
-          </a>
-        </div>
-
-        {/* Button Near Avatar Image - Responsive */}
-        <div className={`md:flex items-center ${showMenu ? 'hidden' : 'block'}`}>
-          <img src={avatar} alt="User Image" className="h-8 w-8 rounded-full ml-5 lg:h-12 lg:w-12" />
-        </div>
+                  {currentUser.role === 'warden' && (
+                    <Link to={`/profile/warden/:${currentUser.warden_id}`}>
+                      <button>PROFILE</button>
+                    </Link>
+                  )}
+                </li>
+                <li className='no-underline inline-block py-[8px] px-[12px] relative text-white text-xl'><Link to='/studentscomplain'>COMPLAINT</Link></li>
+                <li className='no-underline inline-block py-[8px] px-[12px] relative text-white text-xl'><Link to='/about'>ABOUT US</Link></li>
+              </ul>
+            </div>
+          )}
       </nav>
-
-      {/* Sidebar */}
-      <div
-        className={`md:hidden bg-blue-500 text-white w-60 h-screen fixed top-0 left-0 transform ${showMenu ? 'translate-x-0' : '-translate-x-60'
-          } transition-transform duration-300 ease-in-out z-10`}
-      >
-        {/* Close button */}
-        <button onClick={closeSidebar} className="p-4 text-white absolute top-0 right-0 hover:text-yellow-400">
-          &times;
-        </button>
-
-        {/* Sidebar content */}
-        <a href="#" className="block p-4">Link 1</a>
-        <a href="#" className="block p-4">Link 2</a>
-        <a href="#" className="block p-4">Link 3</a>
-      </div>
     </div>
-  );
+  )
 }
 
-export default Navbar;
-
-
+export default Navbar

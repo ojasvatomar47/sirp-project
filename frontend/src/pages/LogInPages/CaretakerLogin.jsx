@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { AuthContext } from '../../context/authContext';
+import img from '../../assets/image2.png';
 
 const CaretakerLogin = () => {
 
@@ -57,7 +58,6 @@ const CaretakerLogin = () => {
             "text-3xl py-4 md:text-4xl font-bold": true,
           })}>
             <center>Log in</center>
-            <p>Caretaker</p>
           </span>
 
           <span className={classNames({
@@ -115,12 +115,22 @@ const CaretakerLogin = () => {
             </span>
           </div>
 
+          <div className={classNames({
+            " text-center text-gray-400":true,
+           } )}>
+            Log In as:
+            <span className={classNames('font-bold', 'text-black')}>
+              <Link to='/studentlogin'>  Student</Link> ||
+              <Link to='/wardenlogin'> Warden</Link>
+            </span>
+          </div>
+
         </div>
 
         <div className={classNames('relative')}>
 
           <img
-            src="image2.png"
+            src={img}
             alt="img"
             className={classNames({
               "w-[350px] h-full md:block object-cover": true,

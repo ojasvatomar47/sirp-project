@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import axios from 'axios';
 import { AuthContext } from '../../context/authContext';
+import img from '../../assets/image2.png';
 
 const StudentLogin = () => {
 
@@ -58,7 +58,6 @@ const StudentLogin = () => {
             "text-3xl py-4 md:text-4xl font-bold":true,
            } )}>
             <center>Log in</center>
-            <p>Student</p>
           </span>
 
           <span className={classNames({
@@ -111,8 +110,18 @@ const StudentLogin = () => {
             " text-center text-gray-400":true,
            } )}>
             Don't have an account?
-            <span className={classNames('font-bold', 'text-black')} href="/caretakerregister">
-              <Link to='/caretakerregister'>Sign up</Link>
+            <span className={classNames('font-bold', 'text-black')} href="/studentregister">
+              <Link to='/studentregister'>Sign up</Link>
+            </span>
+          </div>
+
+          <div className={classNames({
+            " text-center text-gray-400":true,
+           } )}>
+            Log In as: 
+            <span className={classNames('font-bold', 'text-black')}>
+              <Link to='/caretakerlogin'>  Caretaker</Link> ||
+              <Link to='/wardenlogin'> Warden</Link>
             </span>
           </div>
 
@@ -121,7 +130,7 @@ const StudentLogin = () => {
         <div className={classNames('relative')}>
 
           <img
-            src="image2.png"
+            src={img}
             alt="img"
             className={classNames({
               "w-[350px] h-full md:block object-cover":true,
