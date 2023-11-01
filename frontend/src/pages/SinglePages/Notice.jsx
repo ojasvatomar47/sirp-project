@@ -49,25 +49,34 @@ const Notice = () => {
   }
 
   return (
-    <div className='flex justify-center items-center'>
-      <li key={notice.notice_id} className='bg-pink-600'>
-        <h3>{notice.title}</h3>
-        <p>{notice.content}</p>
-        <p>Posted by: {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</p>
-        <p>Submission time: {formatSubmissionDateTime(notice.date)}</p>
-      </li>
-      {
-        currentUser.role != 'student'
-        &&
-        (
-          <div>
-            <button onClick={handleDelete} className='bg-red-600'>Delete Notice</button>
-            <Link to={`/updateNotice/${noticeId}`}>
-              <button className="bg-blue-300">Update Notice</button>
-            </Link>
-          </div>
-        )
-      }
+    <div className='flex flex-col justify-center items-center h-[100vh]'>
+      <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 border-[3px] border-t-teal-600 border-l-teal-600'>
+        <h1 className='text-3xl font-extrabold underline'>NOTICE</h1>
+        <h2 className='text-2xl'><span className='font-bold underline'>Title:</span>  {notice.title}</h2>
+        <h2 className='text-2xl'><span className='font-bold underline'>Description:</span> {notice.content}</h2>
+        <h2 className='text-2xl'><span className='font-bold underline'>From:</span> {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</h2>
+        <h2 className='text-2xl'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(notice.date)}</h2>
+
+        <div>
+
+          {
+            currentUser.role != 'student'
+            &&
+            (
+              <div className='flex justify-between gap-32'>
+                <Link to={`/updatenotice/:${notice.notice_id}`}>
+                  <button className="bg-teal-500 px-16 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75">
+                    Update
+                  </button>
+                </Link>
+                <button onClick={() => handleDelete(notice.notice_id)} className="bg-teal-500 px-12 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75">
+                  Delete
+                </button>
+              </div>
+            )
+          }
+        </div>
+      </div>
     </div>
   )
 }

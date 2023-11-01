@@ -121,7 +121,7 @@ h3 {
 
 .layer h3 {
   width: 100%;
-  columns: #fff;
+  /* color: #fff; */
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

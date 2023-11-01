@@ -32,7 +32,8 @@ const Navbar = () => {
   const isHomePage = location.pathname === '/';
 
   return (
-    <div className={`z-50 w-full transition duration-300 ${isHomePage && 'fixed'} ${navBackground ? 'bg-[#FF8E8E]' : isHomePage ? 'bg-transparent' : 'bg-[#FF8E8E]'}`}>
+    // [#FF8E8E]
+    <div className={`z-50 w-full transition duration-300 ${isHomePage && 'fixed'} ${navBackground ? 'bg-teal-500' : isHomePage ? 'bg-transparent' : 'bg-teal-500'}`}>
       <nav className='flex justify-between items-center py-[1%] px-[6%]'>
         <Link to='/'>
           <div className='flex gap-3 justify-center items-center flex-2'>

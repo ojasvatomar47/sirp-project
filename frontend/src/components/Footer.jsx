@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from '../assets/logo.jpeg';
+// import logo from '../assets/logo.jpeg';
 import git from '../assets/git.png';
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-5 bg-white border-t-[#fdd1d1] border-[2px] bg-gradient-to-b from-white to-[#FF8E8E] text-primary-content">
+    <footer className="footer footer-center p-5 bg-white border-t-teal-500 border-[2px] bg-gradient-to-b from-white to-teal-500 text-primary-content">
       <aside style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-        <img src={logo} alt="Website Logo" className="h-12 w-12 rounded-full mr-2 mb-3 mt-1" />
+        {/* <img src={logo} alt="Website Logo" className="h-12 w-12 rounded-full mr-2 mb-3 mt-1" /> */}
         <p className="font-bold text-0.5xl lg: text-xl" style={{ textAlign: 'center' }}>
           Campus Care <br /> Providing reliable Solutions since 2022
         </p>

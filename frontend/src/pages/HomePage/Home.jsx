@@ -1,15 +1,15 @@
-import '../App.css';
-import avatar from '../assets/avatar.jpeg'
+import '../../App.css';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import aryabhattaimg from '../assets/aryabhatta.jpg'
-import vivekanandaimg from '../assets/vivekananda.jpg'
-import vashishtaimg from '../assets/vasishtha.jpg'
-import nagarjunaimg from '../assets/nagarjuna.jpg'
-import paniniimg from '../assets/panini.jpg'
-import maasaraswatiimg from '../assets/maa-saraswati.jpg'
+import avatar from '../../assets/avatar.jpeg'
+import aryabhattaimg from '../../assets/aryabhatta.jpg'
+import vivekanandaimg from '../../assets/vivekananda.jpg'
+import vashishtaimg from '../../assets/vasishtha.jpg'
+import nagarjunaimg from '../../assets/nagarjuna.jpg'
+import paniniimg from '../../assets/panini.jpg'
+import maasaraswatiimg from '../../assets/maa-saraswati.jpg'
 
 const AboutUs = () => {
 
@@ -173,20 +173,22 @@ const AboutUs = () => {
 
       </section>
 
+      {/* #fff3f3 */}
+
       <section className="course w-[80%] m-auto text-center pt-[100px]">
         <h1 className='text-2xl'>Functionalities We Offer</h1>
         <p className=''>In our hostel management system, we offer an array of advanced functionalities designed to streamline and optimize the management of complaints, notices, and interactions between students, caretakers, and wardens. Here, we outline three key features that empower efficient issue resolution and transparent communication within your dormitory or hostel.</p>
 
         <div className="row">
-          <div className="course-col basis-[31%] bg-[#fff3f3] rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
+          <div className="course-col basis-[31%] bg-teal-100 rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
             <h3>Hierarchical Management of Complaints and Notices</h3>
             <p>The platform provides a structured hierarchy for managing complaints and notices. Students can file complaints, which are initially handled by caretakers. If a complaint isn't resolved or requires higher authority, caretakers can escalate it to wardens. This hierarchical system ensures efficient issue resolution and allows students to follow up on the progress of their complaints.</p>
           </div>
-          <div className="course-col basis-[31%] bg-[#fff3f3] rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
+          <div className="course-col basis-[31%] bg-teal-100 rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
             <h3>Comprehensive Complaint Handling</h3>
             <p>Users can create, update, and delete complaints as needed. This comprehensive approach allows students to provide detailed information about their concerns and track the status of their complaints. Caretakers and wardens can efficiently address these complaints based on their roles and responsibilities.</p>
           </div>
-          <div className="course-col basis-[31%] bg-[#fff3f3] rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
+          <div className="course-col basis-[31%] bg-teal-100 rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
             <h3>Transparent Communication and Feedback</h3>
             <p>The platform fosters transparent communication among students, caretakers, and wardens. Students can view and comment on notices, track the status of their complaints, and receive updates. They can also provide feedback on the resolution process. This open line of communication ensures that all parties involved are informed and can collaborate effectively to create a better living environment in hostels or dormitories.</p>
           </div>
@@ -215,8 +217,8 @@ const AboutUs = () => {
             <h1 className='text-2xl'>Notices from Your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
               {notices.map((notice) => (
-                <Link to={`/complaint/:${notice.notice_id}`}>
-                  <div key={notice.notice_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-[#fff3f3] p-[25px] cursor-pointer flex">
+                <Link to={`/notice/:${notice.notice_id}`}>
+                  <div key={notice.notice_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize'>{notice.title}</h2>
@@ -238,7 +240,7 @@ const AboutUs = () => {
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
               {complaints.map((complaint) => (
                 <Link to={`/complaint/:${complaint.complaint_id}`}>
-                  <div key={complaint.complaint_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-[#fff3f3] p-[25px] cursor-pointer flex">
+                  <div key={complaint.complaint_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize'>{complaint.title} ({complaint.status})</h2>

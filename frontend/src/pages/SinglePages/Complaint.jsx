@@ -58,6 +58,8 @@ const Complaint = () => {
         }
     }
 
+    const todaysDate = new Date()
+
     const submissionDate = (date) => {
         const subDate = new Date(date)
         return subDate
@@ -67,18 +69,56 @@ const Complaint = () => {
         const subDate = new Date(date)
         const tda = new Date(subDate)
         tda.setDate(subDate.getDate() - 2)
+        console.log(tda)
         return tda
     }
+
+    // console.log(
+    // submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date))
 
 
     return (
         <div className='flex justify-center items-center h-[100vh]'>
             <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 border-[3px] border-t-teal-600 border-l-teal-600'>
+                <h1 className='text-3xl font-extrabold underline'>COMPLAINT</h1>
                 <h2 className='text-2xl'><span className='font-bold underline'>Title:</span>  {complaint.title}</h2>
                 <h2 className='text-2xl'><span className='font-bold underline'>Description:</span> {complaint.description}</h2>
                 <h2 className='text-2xl'><span className='font-bold underline'>Status:</span> {complaint.status}</h2>
-                <h2 className='text-2xl'><span className='font-bold underline'>Date:</span> {complaint.submission_date}</h2>
+                <h2 className='text-2xl'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(complaint.submission_date)}</h2>
                 <h2 className='text-2xl'><span className='font-bold underline'>Submitted By:</span> {complaint.student_username}</h2>
+
+                <div className='flex gap-32 justify-between'>
+                    {
+                        (
+                            complaint.assigned_to === 'Caretaker'
+                            &&
+                            submissionDate(complaint.submission_date) <= twoDaysAgo(todaysDate)
+                            &&
+                            complaint.status === 'Pending'
+                        )
+                        &&
+                        <button onClick={() => fwdToWarden(complaint.complaint_id)} className='bg-teal-500 px-4 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75'>
+                            Forward to Warden
+                        </button>
+                    }
+
+                    {
+                        currentUser.role === 'student'
+                        &&
+                        (
+                            <div className='flex justify-between gap-32'>
+                                <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
+                                    <button className="bg-teal-500 px-16 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75">
+                                        Update
+                                    </button>
+                                </Link>
+                                <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-teal-500 px-12 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75">
+                                    Delete
+                                </button>
+                            </div>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
