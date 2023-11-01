@@ -49,13 +49,13 @@ const Notice = () => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center h-[100vh]'>
+    <div className='flex flex-col justify-center font-lora items-center h-[100vh]'>
       <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 border-[3px] border-t-teal-600 border-l-teal-600'>
         <h1 className='text-3xl font-extrabold underline'>NOTICE</h1>
-        <h2 className='text-2xl'><span className='font-bold underline'>Title:</span>  {notice.title}</h2>
-        <h2 className='text-2xl'><span className='font-bold underline'>Description:</span> {notice.content}</h2>
-        <h2 className='text-2xl'><span className='font-bold underline'>From:</span> {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</h2>
-        <h2 className='text-2xl'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(notice.date)}</h2>
+        <h2 className='text-2xl capitalize'><span className='font-bold underline'>Title:</span>  {notice.title}</h2>
+        <h2 className='text-2xl capitalize'><span className='font-bold underline'>Description:</span> {notice.content}</h2>
+        <h2 className='text-2xl capitalize'><span className='font-bold underline'>From:</span> {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</h2>
+        <h2 className='text-2xl capitalize'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(notice.date)}</h2>
 
         <div>
 

@@ -154,7 +154,7 @@ const CaretakerComplain = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-200">
+        <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-200 capitalize">
             {/* Work in Progress */}
             <div className="w-full lg:w-1/3 p-4">
                 <button onClick={() => setShowInProgress(!showInProgress)} className="lg:hidden mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-between">
@@ -197,7 +197,7 @@ const CaretakerComplain = () => {
                         <label htmlFor="description" className="block text-sm font-bold mb-2">Description:</label>
                         <textarea id="description" name="description" onChange={(e) => setContent(e.target.value)} className="capitalize shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter description"></textarea>
                     </div>
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <button type="submit" className="bg-teal-500 px-16 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-150">
                         Add Notice
                     </button>
                 </form>

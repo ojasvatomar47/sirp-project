@@ -7,10 +7,10 @@ const Footer = () => {
     <footer className="footer footer-center p-5 bg-white border-t-teal-500 border-[2px] bg-gradient-to-b from-white to-teal-500 text-primary-content">
       <aside style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
         {/* <img src={logo} alt="Website Logo" className="h-12 w-12 rounded-full mr-2 mb-3 mt-1" /> */}
-        <p className="font-bold text-0.5xl lg: text-xl" style={{ textAlign: 'center' }}>
+        <p className="text-0.5xl lg: text-xl font-fontOne font-extrabold" style={{ textAlign: 'center' }}>
           Campus Care <br /> Providing reliable Solutions since 2022
         </p>
-        <p style={{ textAlign: 'center' }}>Copyright © 2023 - All right reserved</p>
+        <p className='font-lora' style={{ textAlign: 'center' }}>Copyright © 2023 - All right reserved</p>
       </aside>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="grid grid-flow-col gap-4">

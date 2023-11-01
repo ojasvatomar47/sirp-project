@@ -171,7 +171,7 @@ const StudentRegister = () => {
 
           <button className={classNames({
             "w-full p-2": true,
-            "bg-button1 text-white rounded-md hover:bg-button1hover": true,
+            "bg-teal-500 text-white rounded-md hover:bg-teal-600": true,
           })} onClick={handleSubmit}>
             Sign up
           </button>

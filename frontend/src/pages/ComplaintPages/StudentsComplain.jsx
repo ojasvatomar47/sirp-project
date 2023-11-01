@@ -55,7 +55,7 @@ const StudentComplain = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative">
+        <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative capitalize">
             <button
                 onClick={() => setIsSidebarVisible(!isSidebarVisible)}
                 className="md:hidden absolute top-4 left-4 z-50 p-2 bg-white rounded-full"
@@ -96,7 +96,7 @@ const StudentComplain = () => {
                         ></textarea>
                     </div>
                     <div className="text-right">
-                        <button className="bg-blue-600 text-white px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg shadow-lg hover:shadow-xl active:bg-blue-700 focus:outline-none focus:shadow-outline transition-all"
+                        <button className="bg-teal-500 px-16 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75"
                             type="submit"
                         >
                             Submit

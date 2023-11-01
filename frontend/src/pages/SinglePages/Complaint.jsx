@@ -69,23 +69,19 @@ const Complaint = () => {
         const subDate = new Date(date)
         const tda = new Date(subDate)
         tda.setDate(subDate.getDate() - 2)
-        console.log(tda)
         return tda
     }
 
-    // console.log(
-    // submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date))
-
 
     return (
-        <div className='flex justify-center items-center h-[100vh]'>
+        <div className='flex justify-center items-center h-[100vh] font-lora'>
             <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 border-[3px] border-t-teal-600 border-l-teal-600'>
                 <h1 className='text-3xl font-extrabold underline'>COMPLAINT</h1>
-                <h2 className='text-2xl'><span className='font-bold underline'>Title:</span>  {complaint.title}</h2>
-                <h2 className='text-2xl'><span className='font-bold underline'>Description:</span> {complaint.description}</h2>
-                <h2 className='text-2xl'><span className='font-bold underline'>Status:</span> {complaint.status}</h2>
-                <h2 className='text-2xl'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(complaint.submission_date)}</h2>
-                <h2 className='text-2xl'><span className='font-bold underline'>Submitted By:</span> {complaint.student_username}</h2>
+                <h2 className='text-2xl capitalize'><span className='font-bold underline'>Title:</span>  {complaint.title}</h2>
+                <h2 className='text-2xl capitalize'><span className='font-bold underline'>Description:</span> {complaint.description}</h2>
+                <h2 className='text-2xl capitalize'><span className='font-bold underline'>Status:</span> {complaint.status}</h2>
+                <h2 className='text-2xl capitalize'><span className='font-bold underline'>Date:</span> {formatSubmissionDateTime(complaint.submission_date)}</h2>
+                <h2 className='text-2xl capitalize'><span className='font-bold underline'>Submitted By:</span> {complaint.student_username}</h2>
 
                 <div className='flex gap-32 justify-between'>
                     {

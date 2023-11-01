@@ -131,41 +131,41 @@ const AboutUs = () => {
       <section className="header">
 
         <div className="text-box flex flex-col justify-center items-center w-[90%] text-white absolute top-[50%] left-[50%] text-center">
-          <h1 className='text-[62px] font-extrabold'>Student Issue Reporting Portal</h1>
-          <p className='mt-[10px] mb-[40px] text-[20px] text-white font-semibold'>Hi {currentUser.name}! Discover our comprehensive platform, dedicated to improving your campus life through effective complaint handling, streamlined communication via notices, and an array of user-friendly features tailored to empower every member of your campus community.</p>
+          <h1 className='text-[62px] font-extrabold font-fontOne'>Student Issue Reporting Portal</h1>
+          <p className='mt-[10px] mb-[40px] text-[20px] text-white font-semibold font-alveria'>Hi {currentUser ? currentUser.name : 'there'}! Discover our comprehensive platform, dedicated to improving your campus life through effective complaint handling, streamlined communication via notices, and an array of user-friendly features tailored to empower every member of your campus community.</p>
           {!currentUser &&
             (
               <div className='flex gap-10'>
-                <Link to='/studentlogin'><button href="" className="hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Log In</button></Link>
-                <Link to='/studentregister'><button href="" className="hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Register</button></Link>
+                <Link to='/studentlogin'><button href="" className="hero-btn text-lg font-semibold hover:bg-teal-500 transition delay-150 hover:border-teal-600 inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Log In</button></Link>
+                <Link to='/studentregister'><button href="" className="hero-btn text-lg font-semibold hover:bg-teal-500 transition delay-150 ease-linear hover:border-teal-600 inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Register</button></Link>
               </div>
             )}
           {
             currentUser &&
             (
-              <div className='flex gap-10'>
+              <div className='flex gap-10 font-lora'>
                 {currentUser && (
                   <>
                     {currentUser.role === 'student' && (
                       <Link to={`/profile/student/:${currentUser.student_id}`}>
-                        <button className='hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
+                        <button className='hero-btn hover:bg-teal-500 transition delay-150 ease-linear hover:border-teal-500 text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
                       </Link>
                     )}
 
                     {currentUser.role === 'caretaker' && (
                       <Link to={`/profile/caretaker/:${currentUser.caretaker_id}`}>
-                        <button className='hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
+                        <button className='hero-btn hover:bg-teal-500 transition delay-150 ease-linear hover:border-teal-500 text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
                       </Link>
                     )}
 
                     {currentUser.role === 'warden' && (
                       <Link to={`/profile/warden/:${currentUser.warden_id}`}>
-                        <button className='hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
+                        <button className='hero-btn hover:bg-teal-500 transition delay-150 ease-linear hover:border-teal-500 text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer'>Your Profile</button>
                       </Link>
                     )}
                   </>
                 )}
-                <button href="" onClick={handleLogout} className="hero-btn text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Log-Out</button>
+                <button href="" onClick={handleLogout} className="hero-btn hover:bg-teal-500 transition delay-75 hover:border-teal-600 text-lg font-semibold inline-block border-[1px] no-underline text-white py-[12px] px-[34px] bg-transparent relative cursor-pointer">Log-Out</button>
               </div>
             )
           }
@@ -176,10 +176,10 @@ const AboutUs = () => {
       {/* #fff3f3 */}
 
       <section className="course w-[80%] m-auto text-center pt-[100px]">
-        <h1 className='text-2xl'>Functionalities We Offer</h1>
-        <p className=''>In our hostel management system, we offer an array of advanced functionalities designed to streamline and optimize the management of complaints, notices, and interactions between students, caretakers, and wardens. Here, we outline three key features that empower efficient issue resolution and transparent communication within your dormitory or hostel.</p>
+        <h1 className='text-3xl font-fontTwo'>Functionalities We Offer</h1>
+        <p className='font-lora'>In our hostel management system, we offer an array of advanced functionalities designed to streamline and optimize the management of complaints, notices, and interactions between students, caretakers, and wardens. Here, we outline three key features that empower efficient issue resolution and transparent communication within your dormitory or hostel.</p>
 
-        <div className="row">
+        <div className="row font-autour">
           <div className="course-col basis-[31%] bg-teal-100 rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
             <h3>Hierarchical Management of Complaints and Notices</h3>
             <p>The platform provides a structured hierarchy for managing complaints and notices. Students can file complaints, which are initially handled by caretakers. If a complaint isn't resolved or requires higher authority, caretakers can escalate it to wardens. This hierarchical system ensures efficient issue resolution and allows students to follow up on the progress of their complaints.</p>
@@ -196,10 +196,10 @@ const AboutUs = () => {
       </section>
 
       <section className="campus w-[80%] m-auto text-center pt-[50px]">
-        <h1 className='text-2xl'>Hostels We Cover</h1>
-        <p>Learn more about the hostels within our network, where you can efficiently manage your complaints and stay updated on essential notices.</p>
+        <h1 className='text-3xl font-fontTwo'>Hostels We Cover</h1>
+        <p className='font-lora'>Learn more about the hostels within our network, where you can efficiently manage your complaints and stay updated on essential notices.</p>
 
-        <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
+        <div className="row flex-nowrap gap-5 overflow-x-auto w-full font-metal">
           {hostels.map((Hostel) => (
             <div className="campus-col basis-[17%] min-w-[400px] w-80 h-96 rounded-[10px] mb-[30px] relative box-content overflow-hidden">
               <img src={Hostel.Img} alt="" className='w-full h-full object-cover block' />
@@ -214,16 +214,16 @@ const AboutUs = () => {
       {currentUser &&
         (
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
-            <h1 className='text-2xl'>Notices from Your Hostel</h1>
+            <h1 className='text-3xl font-fontTwo'>Notices from Your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
               {notices.map((notice) => (
                 <Link to={`/notice/:${notice.notice_id}`}>
                   <div key={notice.notice_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
-                      <h2 className='truncate capitalize'>{notice.title}</h2>
-                      <p className='truncate p-0 capitalize'>{notice.content}</p>
-                      <h3 className='mt-[15px] text-left'>From: {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</h3>
+                      <h2 className='truncate capitalize font-lora'>{notice.title}</h2>
+                      <p className='truncate p-0 capitalize font-alveria'>{notice.content}</p>
+                      <h3 className='mt-[15px] text-left font-metal'>From: {notice.user_role === 'Caretaker' ? "Caretaker" : "Warden"}</h3>
                       <p className="text-gray-600 p-0">{formatSubmissionDateTime(notice.date)}</p>
                     </div>
                   </div>
@@ -236,16 +236,16 @@ const AboutUs = () => {
       {currentUser &&
         (
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
-            <h1 className='text-2xl'>Complaints Registered from your Hostel</h1>
+            <h1 className='text-3xl font-fontTwo'>Complaints Registered from your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
               {complaints.map((complaint) => (
                 <Link to={`/complaint/:${complaint.complaint_id}`}>
                   <div key={complaint.complaint_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
-                      <h2 className='truncate capitalize'>{complaint.title} ({complaint.status})</h2>
-                      <p className='truncate p-0 capitalize'>{complaint.description}</p>
-                      <h3 className='mt-[15px] text-left'>{complaint.student_username}</h3>
+                      <h2 className='truncate capitalize font-lora'>{complaint.title} ({complaint.status})</h2>
+                      <p className='truncate p-0 capitalize font-alveria'>{complaint.description}</p>
+                      <h3 className='mt-[15px] text-left font-metal'>{complaint.student_username}</h3>
                       <p className="text-gray-600 p-0">{formatSubmissionDateTime(complaint.submission_date)}</p>
                     </div>
                   </div>
@@ -257,9 +257,9 @@ const AboutUs = () => {
 
       {(currentUser && currentUser.role === 'student') &&
         (
-          <section className="cta">
-            <h1 className='font-bold text-2xl'>Add a complaint now</h1>
-            <Link to='/studentscomplain'><button onClick={scrollToTop} className='bg-red-600 text-white px-4 py-3 rounded-[10px] hover:bg-red-800 transition delay-150 ease-in'>Add a Complaint</button></Link>
+          <section className="cta font-lora">
+            <h1 className='font-bold text-2xl font-fontTwo'>Add a complaint now</h1>
+            <Link to='/studentscomplain'><button onClick={scrollToTop} className='bg-teal-500 text-white px-4 py-3 rounded-[10px] hover:bg-teal-600 transition delay-150 ease-in'>Add a Complaint</button></Link>
           </section>
         )
       }
