@@ -55,7 +55,7 @@ const StudentComplain = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative capitalize">
+        <div className="w-screen h-screen flex items-start bg-gray-200 overflow-hidden relative capitalize font-lora">
             <button
                 onClick={() => setIsSidebarVisible(!isSidebarVisible)}
                 className="md:hidden absolute top-4 left-4 z-50 p-2 bg-white rounded-full"
@@ -65,7 +65,7 @@ const StudentComplain = () => {
 
             <Sidebar isSidebarVisible={isSidebarVisible} />
             <div className={
-                "bg-white p-4 sm:p-6 md:p-8 lg:p-10 " +
+                "bg-gradient-to-tl from-teal-200 to-[#fff3f3] p-4 sm:p-6 md:p-8 lg:p-10 " +
                 "ml-4 sm:ml-6 md:ml-11 lg:ml-20 mr-4 sm:mr-6 md:mr-11 lg:mr-20 mx-auto mt-10 sm:mt-14 md:mt-20 lg:mt-24 " +
                 "rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 w-full sm:w-4/5 md:w-2/3 lg:w-3/4"
             }>

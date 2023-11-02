@@ -75,7 +75,7 @@ const Complaint = () => {
 
     return (
         <div className='flex justify-center items-center h-[100vh] font-lora'>
-            <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 border-[3px] border-t-teal-600 border-l-teal-600'>
+            <div className='w-[65%] flex flex-col justify-center items-center gap-10 shadow-2xl rounded-[10px] py-14 px-20 border-[3px] border-t-teal-600 border-l-teal-600 bg-gradient-to-br from-[#fff3f3] via-white to-teal-200'>
                 <h1 className='text-3xl font-extrabold underline'>COMPLAINT</h1>
                 <h2 className='text-2xl capitalize'><span className='font-bold underline'>Title:</span>  {complaint.title}</h2>
                 <h2 className='text-2xl capitalize'><span className='font-bold underline'>Description:</span> {complaint.description}</h2>
@@ -99,7 +99,7 @@ const Complaint = () => {
                     }
 
                     {
-                        currentUser.role === 'student'
+                        (currentUser.role === 'student' && (currentUser.student_id===complaint.student_id))
                         &&
                         (
                             <div className='flex justify-between gap-32'>

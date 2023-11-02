@@ -103,8 +103,8 @@ const CaretakerComplain = () => {
     const ComplaintsList = ({ complaints }) => {
         return (
             <div className="flex flex-col overflow-y-auto max-h-[calc(100vh-200px)] bg-gray-200">
-                {complaints.map((complaint) => (
-                    <div key={complaint.complaint_id} className="mb-4 bg-white p-4 rounded-lg shadow-lg">
+                {complaints.map((complaint, index) => (
+                    <div key={complaint.complaint_id} className={`mb-4 ${(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-4 rounded-lg shadow-lg`}>
                         {/* Display the username */}
                         <Link to={`/complaint/:${complaint.complaint_id}`}>
                             <h3 className="text-gray-800 font-medium mb-2">{complaint.student_username}</h3>
@@ -154,7 +154,7 @@ const CaretakerComplain = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-200 capitalize">
+        <div className="flex flex-col lg:flex-row w-full h-screen bg-gray-200 capitalize font-lora">
             {/* Work in Progress */}
             <div className="w-full lg:w-1/3 p-4">
                 <button onClick={() => setShowInProgress(!showInProgress)} className="lg:hidden mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-between">
@@ -188,7 +188,7 @@ const CaretakerComplain = () => {
             {/* Notice Form */}
             < div className="w-full lg:w-1/3 p-4 mt-10 lg:mt-0" > {/* Added `mt-10` for margin-top */}
                 < h2 className="text-2xl mb-4" > Notice</h2 >
-                <form onSubmit={postNotice} className="bg-white p-4 rounded-lg shadow-lg">
+                <form onSubmit={postNotice} className="bg-gradient-to-tl from-teal-200 to-[#fff3f3] p-4 rounded-lg shadow-lg">
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-sm font-bold mb-2">Title:</label>
                         <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} className="capitalize shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter title" />

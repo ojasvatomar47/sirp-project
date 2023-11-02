@@ -184,7 +184,7 @@ const AboutUs = () => {
             <h3>Hierarchical Management of Complaints and Notices</h3>
             <p>The platform provides a structured hierarchy for managing complaints and notices. Students can file complaints, which are initially handled by caretakers. If a complaint isn't resolved or requires higher authority, caretakers can escalate it to wardens. This hierarchical system ensures efficient issue resolution and allows students to follow up on the progress of their complaints.</p>
           </div>
-          <div className="course-col basis-[31%] bg-teal-100 rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
+          <div className="course-col basis-[31%] bg-[#fff3f3] rounded-[10px] mb-[5%] py-[20px] px-[12px] box-border">
             <h3>Comprehensive Complaint Handling</h3>
             <p>Users can create, update, and delete complaints as needed. This comprehensive approach allows students to provide detailed information about their concerns and track the status of their complaints. Caretakers and wardens can efficiently address these complaints based on their roles and responsibilities.</p>
           </div>
@@ -200,11 +200,11 @@ const AboutUs = () => {
         <p className='font-lora'>Learn more about the hostels within our network, where you can efficiently manage your complaints and stay updated on essential notices.</p>
 
         <div className="row flex-nowrap gap-5 overflow-x-auto w-full font-metal">
-          {hostels.map((Hostel) => (
+          {hostels.map((Hostel, index) => (
             <div className="campus-col basis-[17%] min-w-[400px] w-80 h-96 rounded-[10px] mb-[30px] relative box-content overflow-hidden">
               <img src={Hostel.Img} alt="" className='w-full h-full object-cover block' />
               <div className="layer">
-                <h3 className='text-teal-700 font-extrabold text-3xl'>{Hostel.Name}</h3>
+                <h3 className={`${(index&1)?'text-teal-500':'text-pink-500'} font-extrabold text-3xl`}>{Hostel.Name}</h3>
               </div>
             </div>
           ))}
@@ -216,9 +216,9 @@ const AboutUs = () => {
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
             <h1 className='text-3xl font-fontTwo'>Notices from Your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
-              {notices.map((notice) => (
+              {notices.map((notice, index) => (
                 <Link to={`/notice/:${notice.notice_id}`}>
-                  <div key={notice.notice_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
+                  <div key={notice.notice_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${!(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-[25px] cursor-pointer flex`}>
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{notice.title}</h2>
@@ -238,9 +238,9 @@ const AboutUs = () => {
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
             <h1 className='text-3xl font-fontTwo'>Complaints Registered from your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
-              {complaints.map((complaint) => (
+              {complaints.map((complaint, index) => (
                 <Link to={`/complaint/:${complaint.complaint_id}`}>
-                  <div key={complaint.complaint_id} className="testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left bg-teal-100 p-[25px] cursor-pointer flex">
+                  <div key={complaint.complaint_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-[25px] cursor-pointer flex`}>
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{complaint.title} ({complaint.status})</h2>
