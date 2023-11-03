@@ -2,7 +2,7 @@ import React from 'react';
 
 function Sidebar({ complaints = defaultComplaints }) {
     return (
-        <div className="flex flex-col flex-no-wrap w-1/4 h-screen bg-gray-300 bg-gradient-to-r from-cyan-500 to-blue-500 p-4 overflow-y-auto">
+        <div className="flex flex-col flex-no-wrap w-54 h-screen bg-gray-300 bg-gradient-to-r from-cyan-500 to-blue-500 p-4 overflow-y-auto">
             {complaints.map((complaint, index) => (
                 <div key={index} className="mb-4 bg-white p-4 rounded-lg shadow-lg">
                     <h2 className="text-xl mb-2 font-semibold">{complaint.issue}</h2>
