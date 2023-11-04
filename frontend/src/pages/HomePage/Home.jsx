@@ -200,11 +200,11 @@ const AboutUs = () => {
         <p className='font-lora'>Learn more about the hostels within our network, where you can efficiently manage your complaints and stay updated on essential notices.</p>
 
         <div className="row flex-nowrap gap-5 overflow-x-auto w-full font-metal">
-          {hostels.map((Hostel, index) => (
+          {hostels.map((Hostel) => (
             <div className="campus-col basis-[17%] min-w-[400px] w-80 h-96 rounded-[10px] mb-[30px] relative box-content overflow-hidden">
               <img src={Hostel.Img} alt="" className='w-full h-full object-cover block' />
               <div className="layer">
-                <h3 className={`${(index&1)?'text-teal-500':'text-pink-500'} font-extrabold text-3xl`}>{Hostel.Name}</h3>
+                <h3 className={`text-white bg-teal-300 font-extrabold text-3xl`}>{Hostel.Name}</h3>
               </div>
             </div>
           ))}

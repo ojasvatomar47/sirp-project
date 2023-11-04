@@ -72,6 +72,29 @@ const Complaint = () => {
         return tda
     }
 
+    const handleStatus = async (complaintId, updateTo) => {
+
+        try {
+            const res = await axios.put(`http://localhost:8800/api/complain/status/${complaintId}`, { status: updateTo })
+            console.log(res.data)
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const fwdToWarden = async (complaintId) => {
+
+        try {
+            const res = await axios.put(`http://localhost:8800/api/complain/forwardToWarden/${complaintId}`)
+            alert("Complaint forwarded to warden successfully");
+            window.location.reload()
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <div className='flex justify-center items-center h-[100vh] font-lora'>
@@ -91,6 +114,8 @@ const Complaint = () => {
                             submissionDate(complaint.submission_date) <= twoDaysAgo(todaysDate)
                             &&
                             complaint.status === 'Pending'
+                            &&
+                            (currentUser.student_id === complaint.student_id)
                         )
                         &&
                         <button onClick={() => fwdToWarden(complaint.complaint_id)} className='bg-teal-500 px-4 py-4 rounded-[4px] text-xl font-semibold text-white hover:bg-teal-700 transition ease-in-out delay-75'>
@@ -99,7 +124,7 @@ const Complaint = () => {
                     }
 
                     {
-                        (currentUser.role === 'student' && (currentUser.student_id===complaint.student_id))
+                        (currentUser.role === 'student' && (currentUser.student_id === complaint.student_id) && complaint.status === 'Pending')
                         &&
                         (
                             <div className='flex justify-between gap-32'>
@@ -112,6 +137,32 @@ const Complaint = () => {
                                     Delete
                                 </button>
                             </div>
+                        )
+                    }
+
+                    {(complaint.status === 'Pending' && currentUser.role === 'caretaker')
+                        &&
+                        (
+                            <button onClick={() => handleStatus(complaint.complaint_id, 'Solved')} className="bg-blue-500 text-white px-10 py-2 text-xl rounded hover:bg-blue-600">
+                                Resolved
+                            </button>
+                        )
+                    }
+
+                    {(complaint.status === 'Solved' && currentUser.role === 'caretaker') &&
+                        (
+                            <button onClick={() => handleStatus(complaint.complaint_id, 'Pending')} className="bg-blue-500 text-white px-10 py-2 text-xl rounded hover:bg-blue-600">
+                                In Progress
+                            </button>
+                        )
+                    }
+
+                    {(complaint.status === 'Escalated' && currentUser.role === 'warden')
+                        &&
+                        (
+                            <button onClick={() => handleStatus(complaint.complaint_id, 'Solved')} className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                                Resolved
+                            </button>
                         )
                     }
                 </div>

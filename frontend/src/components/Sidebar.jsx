@@ -66,9 +66,9 @@ const Sidebar = ({ isSidebarVisible }) => {
         }
     }, [currentUser])
 
-    const fwdToWarden = async (complaintId) => {
+    const todaysDate = new Date()
 
-        console.log(complaintId)
+    const fwdToWarden = async (complaintId) => {
 
         try {
             const res = await axios.put(`http://localhost:8800/api/complain/forwardToWarden/${complaintId}`)
@@ -122,7 +122,11 @@ const Sidebar = ({ isSidebarVisible }) => {
                                 (
                                     complaint.assigned_to === 'Caretaker'
                                     &&
-                                    submissionDate(complaint.submission_date) <= twoDaysAgo(complaint.submission_date)
+                                    submissionDate(complaint.submission_date) <= twoDaysAgo(todaysDate)
+                                    &&
+                                    complaint.status === 'Pending'
+                                    &&
+                                    (currentUser.student_id === complaint.student_id)
                                 )
                                 &&
                                 <button onClick={() => fwdToWarden(complaint.complaint_id)} className="bg-blue-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-blue-600 transition-colors duration-200">
