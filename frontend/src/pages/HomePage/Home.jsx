@@ -216,9 +216,9 @@ const AboutUs = () => {
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
             <h1 className='text-3xl font-fontTwo'>Notices from Your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
-              {notices.map((notice, index) => (
+              {notices.slice().reverse().map((notice, index) => (
                 <Link to={`/notice/:${notice.notice_id}`}>
-                  <div key={notice.notice_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${!(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-[25px] cursor-pointer flex`}>
+                  <div key={notice.notice_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${!(index & 1) ? 'bg-[#fff3f3]' : 'bg-teal-100'} p-[25px] cursor-pointer flex`}>
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{notice.title}</h2>
@@ -238,9 +238,9 @@ const AboutUs = () => {
           <section className="testimonials w-[80%] m-auto pt-[100px] text-center">
             <h1 className='text-3xl font-fontTwo'>Complaints Registered from your Hostel</h1>
             <div className="row flex-nowrap gap-5 overflow-x-auto w-full">
-              {complaints.map((complaint, index) => (
+              {complaints.slice().reverse().map((complaint, index) => (
                 <Link to={`/complaint/:${complaint.complaint_id}`}>
-                  <div key={complaint.complaint_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-[25px] cursor-pointer flex`}>
+                  <div key={complaint.complaint_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${(index & 1) ? 'bg-[#fff3f3]' : 'bg-teal-100'} p-[25px] cursor-pointer flex`}>
                     <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{complaint.title} ({complaint.status})</h2>

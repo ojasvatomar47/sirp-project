@@ -103,7 +103,7 @@ const WardenComplain = () => {
     const ComplaintsList = ({ complaints }) => {
         return (
             <div className="flex flex-col overflow-y-auto max-h-[calc(100vh-200px)] bg-gray-200">
-                {complaints.map((complaint, index) => (
+                {complaints.slice().reverse().map((complaint, index) => (
                     <div key={complaint.complaint_id} className={`mb-4 ${(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-4 rounded-lg shadow-lg`}>
                         {/* Display the username */}
                         <Link to={`/complaint/:${complaint.complaint_id}`}>
