@@ -10,6 +10,10 @@ import vashishtaimg from '../../assets/vasishtha.jpg'
 import nagarjunaimg from '../../assets/nagarjuna.jpg'
 import paniniimg from '../../assets/panini.jpg'
 import maasaraswatiimg from '../../assets/maa-saraswati.jpg'
+import caretakerAvatar from "../../assets/avatars/caretakerAvatar.jpg";
+import wardenAvatar from "../../assets/avatars/wardenAvatar.jpg";
+import avatar1 from "../../assets/avatars/boyAvatar.jpg";
+import avatar2 from "../../assets/avatars/girlAvatar1.jpg";
 
 const AboutUs = () => {
 
@@ -219,7 +223,7 @@ const AboutUs = () => {
               {notices.slice().reverse().map((notice, index) => (
                 <Link to={`/notice/:${notice.notice_id}`}>
                   <div key={notice.notice_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${!(index & 1) ? 'bg-[#fff3f3]' : 'bg-teal-100'} p-[25px] cursor-pointer flex`}>
-                    <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
+                  {notice.user_role==='Caretaker' ? (<img src={caretakerAvatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />) : (<img src={wardenAvatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />)}
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{notice.title}</h2>
                       <p className='truncate p-0 capitalize font-alveria'>{notice.content}</p>
@@ -241,7 +245,7 @@ const AboutUs = () => {
               {complaints.slice().reverse().map((complaint, index) => (
                 <Link to={`/complaint/:${complaint.complaint_id}`}>
                   <div key={complaint.complaint_id} className={`testimonial-col rounded-[10px] mb-[5%] w-80 box-content text-left ${(index & 1) ? 'bg-[#fff3f3]' : 'bg-teal-100'} p-[25px] cursor-pointer flex`}>
-                    <img src={avatar} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />
+                  {currentUser.hostel_name==='Nagarjuna' || currentUser.hostel_name==='Maa Saraswati' ? (<img src={avatar2} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />) : (<img src={avatar1} alt="" className='h-[40px] ml-[5px] mr-[30px] rounded-[50%]' />)}
                     <div className='truncate'>
                       <h2 className='truncate capitalize font-lora'>{complaint.title} ({complaint.status})</h2>
                       <p className='truncate p-0 capitalize font-alveria'>{complaint.description}</p>
