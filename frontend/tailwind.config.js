@@ -23,6 +23,11 @@ export default {
         metal: ['Metal', 'cursive'],
         freecursive: ['Freehand', 'cursive'],
         autour: ['Autour One', 'cursive'],
+        fontOne: ['Satisfy', 'cursive'],
+        fontTwo: ['Kalam', 'cursive'],
+        fontThree: ['Permanent Marker', 'cursive'],
+        fontFour: ['Lobster Two', 'sans-serif'],
+        fontFive: ['Lobster Two', 'sans-serif'],
       }
     },
   },

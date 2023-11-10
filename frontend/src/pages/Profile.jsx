@@ -2,7 +2,8 @@ import React from "react";
 import ProfileDetails from "../components/ProfileDetails";
 import BodyDetails from "../components/BodyDetails";
 import "../components/profile.css";
-import Newsidebar from "../components/Newsidebar";
+import Newsidebar from "../components/Sidebar";
+import avatar from "../assets/avatar.jpeg"
 
 export default function ProfilePage() {
   return (
@@ -12,7 +13,7 @@ export default function ProfilePage() {
           <div className="gradiant"></div>
 
           <div className="profiledown">
-            <img src="userlogo.png" alt="" />
+            <img src={avatar} alt="" />
             <div className="main">
               <ProfileDetails name="Nihal Mohammad Ali" rollNo="22BCS170" />
             </div>
