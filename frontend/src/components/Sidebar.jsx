@@ -94,7 +94,7 @@ const Sidebar = ({ isSidebarVisible }) => {
             {studentComplaints.slice().reverse().map((complaint, index) => (
                 <div
                     key={complaint.complaint_id}
-                    className={`mb-6 ${(index&1)?'bg-[#fff3f3]':'bg-teal-100'} p-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-2`}
+                    className={`mb-6 ${(index & 1) ? 'bg-[#fff3f3]' : 'bg-teal-100'} p-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-2`}
                 >
                     <Link to={`/complaint/:${complaint.complaint_id}`}>
                         <div className="flex items-center justify-between">
@@ -111,7 +111,7 @@ const Sidebar = ({ isSidebarVisible }) => {
                             <p className='text-xs mt-1'>{formatSubmissionDateTime(complaint.submission_date)}</p>
                         </div>
                     </Link>
-                    
+
                     {
                         complaint.status === 'Pending'
                         &&
@@ -132,14 +132,16 @@ const Sidebar = ({ isSidebarVisible }) => {
                                 </button>
                             }
 
-                            <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
-                                <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
-                                    Update
+                            <div className=' w-full flex justify-center items-center gap-4'>
+                                <Link to={`/updateComplaint/:${complaint.complaint_id}`}>
+                                    <button className="bg-teal-500 text-white w-full sm:w-auto px-2 sm:px-3 py-5 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-teal-600 transition-colors duration-200">
+                                        Update
+                                    </button>
+                                </Link>
+                                <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-5 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
+                                    Delete
                                 </button>
-                            </Link>
-                            <button onClick={() => handleDelete(complaint.complaint_id)} className="bg-red-600 text-white w-full sm:w-auto px-2 sm:px-3 py-1 text-xs sm:text-sm rounded shadow-sm hover:shadow-md hover:bg-red-700 transition-colors duration-200">
-                                Delete
-                            </button>
+                            </div>
                         </div>
                     }
                 </div>
