@@ -6,7 +6,7 @@ import ProfileDetails from "../../components/ProfileDetails";
 import BodyDetails from "../../components/BodyDetails";
 import "../../components/Profile.css";
 import AuthoritySidebar from "../../components/AuthoritySidebar";
-import avatar from "../../assets/avatar.jpeg";
+import avatar from "../../assets/avatars/caretakerAvatar.jpg";
 
 const CaretakerProfile = () => {
 

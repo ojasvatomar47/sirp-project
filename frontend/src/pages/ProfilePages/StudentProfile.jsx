@@ -5,7 +5,8 @@ import ProfileDetails from "../../components/ProfileDetails";
 import BodyDetails from "../../components/BodyDetails";
 import "../../components/Profile.css";
 import Sidebar from "../../components/Sidebar";
-import avatar from "../../assets/avatar.jpeg";
+import avatar1 from "../../assets/avatars/boyAvatar.jpg";
+import avatar2 from "../../assets/avatars/girlAvatar1.jpg";
 
 const StudentProfile = () => {
 
@@ -75,7 +76,7 @@ const StudentProfile = () => {
 
           <div className="profiledown">
             <div>
-              <img src={avatar} alt="" />
+              {currentUser.hostel_name==='Nagarjuna' || currentUser.hostel_name==='Maa Saraswati' ? (<img src={avatar2} alt="" />) : (<img src={avatar1} alt="" />)}
               <div className="main">
                 <ProfileDetails name={currentUser.name} username={currentUser.username} />
               </div>
@@ -89,6 +90,7 @@ const StudentProfile = () => {
                 Username={currentUser.username}
                 HostelName={currentUser.hostel_name}
                 MailId={currentUser.email}
+                Role={currentUser.role}
                 CaretakerName={caretakerName}
                 CaretakerMail={caretakerEmail}
                 WardenName={wardenName}
