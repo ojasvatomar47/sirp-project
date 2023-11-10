@@ -114,6 +114,34 @@ export const studentComplains = (req, res) => {
     })
 }
 
+// FUNCTION: Get caretaker and warden's information for a specific hostel
+// ACCESS TO: STUDENT
+export const getCaretakerWarden = (req, res) => {
+
+    const { hostelName } = req.query
+
+    const q = `
+        SELECT
+            caretaker_name,
+            caretaker_email,
+            warden_name,
+            warden_email
+        FROM
+            hostels
+        WHERE
+            hostel_name = ?
+    `
+
+    db.query(q, [hostelName], (err, data) => {
+        if (err) {
+            return res.status(500).json(err)
+        } 
+        else {
+            return res.status(200).json(data)
+        }
+    })
+}
+
 // FUNCTION: Get all the pending complaints assigned to the Caretaker
 // ACCESS TO: CARETAKER
 export const getPendingComplainsCaretaker = (req, res) => {

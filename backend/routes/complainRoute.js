@@ -13,7 +13,8 @@ import {
     forwardToWarden,
     deleteComplain,
     getComplainsStatusCountStudent,
-    countHostelStatusComplaints
+    countHostelStatusComplaints,
+    getCaretakerWarden
 } from '../controllers/complainController.js';
 
 const router = express.Router();
@@ -32,6 +33,11 @@ router.get('/singlecomplaint/:complaintId', getComplain);
 // ACCESS: Private
 // FUNCTIONALITY: Get all the complaints registered by a student
 router.get('/student/:studentId', studentComplains);
+
+// METHOD: GET
+// ACCESS: Private
+// FUNCTIONALITY: Get caretaker and warden's information
+router.get('/caretakerWardenInfo', getCaretakerWarden);
 
 // METHOD: GET
 // ACCESS: Private
