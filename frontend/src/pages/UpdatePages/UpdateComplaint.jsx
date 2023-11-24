@@ -15,6 +15,13 @@ const UpdateComplaint = () => {
 
     const navigate = useNavigate()
 
+    const formatSubmissionDateTime = (dateTimeString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateTimeString).toLocaleDateString(undefined, options);
+        const time = new Date(dateTimeString).toLocaleTimeString();
+        return `${date}`;
+      };
+
     const handleUpdate = async (event) => {
 
         event.preventDefault()
