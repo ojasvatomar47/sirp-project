@@ -39,9 +39,9 @@ const Navbar = () => {
   };
 
   return (
-    // [#FF8E8E]
-    <div className={`z-50 w-full transition duration-300 ${isHomePage && 'fixed'} ${navBackground ? 'bg-teal-500' : isHomePage ? 'bg-transparent' : 'bg-teal-500'}`}>
-      <nav className='flex justify-between items-center py-[1%] px-[6%]'>
+    <div className={`z-50 w-full transition duration-300 ${isHomePage && 'fixed'}`}>
+      {/* <nav className={`flex justify-between items-center py-[1%] px-[6%] ${navBackground ? 'bg-yellow-400' : isHomePage ? 'bg-transparent' : 'bg-yellow-200'}`}> */}
+      <nav className={`flex justify-between items-center py-[1%] px-[6%] ${navBackground ? ' bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300' : isHomePage ? 'bg-transparent' : 'bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300'}`}>
         <Link to='/'>
           <div className='flex gap-3 justify-center items-center flex-2'>
             {/* <img src={logoimg} alt="" className='w-[60px] h-[40px]' /> */}
