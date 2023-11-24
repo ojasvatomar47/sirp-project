@@ -64,6 +64,17 @@ const AboutUs = () => {
     }
   ]
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  useEffect(() => {
+    // Scroll to the top when the component mounts (page opens)
+    scrollToTop();
+  }, []); 
 
   useEffect(() => {
 
@@ -124,12 +135,12 @@ const AboutUs = () => {
     return `${date}`;
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth'
+  //   });
+  // };
 
   const FaqSection = () => {
     const [search, setSearch] = useState('');
