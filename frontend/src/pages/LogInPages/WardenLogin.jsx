@@ -35,7 +35,7 @@ const WardenLogin = () => {
   return (
     <div className={classNames({
       "bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-30% to-emerald-300 to-90%":true,
-      "flex md:flex-col h-full": true,
+      "flex md:flex-col  h-[100vh]": true,
       "items-center justify-center": true,
       "text-[8px] md:text-base font-lora": true,
       "md:gap-7 md:w-[100vw]": true,
