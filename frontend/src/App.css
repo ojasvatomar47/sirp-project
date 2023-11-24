@@ -6,11 +6,23 @@
 .header {
   min-height: 100vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(https://upload.wikimedia.org/wikipedia/commons/6/60/Statsbiblioteket_l%C3%A6sesalen-2.jpg);
-  background-position: center;
-  background-size: cover;
   position: relative;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/60/Statsbiblioteket_l%C3%A6sesalen-2.jpg);
+  background-size: cover;
+  background-position: center;
 }
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.5; 
+}
+
 
 nav {
   padding: 2% 6%;
