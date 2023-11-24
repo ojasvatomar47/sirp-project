@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
-import img from '../../assets/image2.png';
+import img from '../../assets/img.png';
 
 const WardenRegister = () => {
 
@@ -38,6 +38,7 @@ const WardenRegister = () => {
 
   return (
     <div className={classNames(
+      'bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-30% to-emerald-300 to-90%',
       'h-full',
       'font-lora',
       'flex',
@@ -70,8 +71,7 @@ const WardenRegister = () => {
             alt="img"
             className={classNames({
               "w-[350px] h-full md:block object-cover": true,
-              "opacity-50 hidden rounder-r-2xl": true,
-
+              "opacity-90 hidden ": true,
             })}
           />
 
@@ -162,7 +162,7 @@ const WardenRegister = () => {
           <div className={classNames({
             " text-center text-gray-400 mb-2": true,
           })}>
-            Don't have an account?
+            Already have an account?
             <span className={classNames('font-bold', 'text-black')} href="/caretakerlogin">
               <Link to='/wardenlogin'>Log In</Link>
             </span>

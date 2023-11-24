@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { AuthContext } from '../../context/authContext';
-import img from '../../assets/image2.png';
+import img from '../../assets/img.png';
 
 const StudentLogin = () => {
 
@@ -34,6 +34,7 @@ const StudentLogin = () => {
 
   return (
     <div className={classNames({
+      "bg-gradient-to-r from-indigo-300 from-10% via-sky-300 via-30% to-emerald-300 to-90%":true,
       "flex md:flex-col h-full":true,
       "items-center justify-center":true,
       "text-[8px] md:text-base font-lora":true,
@@ -134,7 +135,7 @@ const StudentLogin = () => {
             alt="img"
             className={classNames({
               "w-[350px] h-full md:block object-cover":true,
-              "opacity-50 hidden rounder-r-2xl":true,
+              "opacity-90 hidden ": true,
               
               }  )}
           />
